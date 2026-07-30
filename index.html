@@ -8,16 +8,17 @@
   @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap');
 
   :root{
-    --night-1:#12142A;
-    --night-2:#1B1E3C;
-    --night-3:#252A4E;
-    --card-line:#3B4070;
-    --ink:#EDE7D9;
-    --ink-dim:#9490A8;
-    --amber:#E8A33D;
-    --amber-dim:#6B5A38;
-    --amber-ink:#241C10;
-    --radius:5px;
+    --night-1:#0F1123;
+    --night-2:#171A35;
+    --night-3:#212548;
+    --card-line:#353A68;
+    --ink:#F3EDDF;
+    --ink-dim:#A09CB7;
+    --amber:#EBA244;
+    --amber-soft:rgba(235, 162, 68, 0.15);
+    --amber-dim:#7A5E33;
+    --amber-ink:#21180B;
+    --radius:8px;
   }
 
   *{box-sizing:border-box;}
@@ -25,42 +26,44 @@
   body{
     min-height:100vh;
     background:
-      radial-gradient(ellipse at 15% -5%, rgba(232,163,61,0.08), transparent 55%),
-      radial-gradient(ellipse at 100% 105%, rgba(232,163,61,0.06), transparent 55%),
-      linear-gradient(180deg, var(--night-1), var(--night-2) 55%, var(--night-1));
+      radial-gradient(ellipse at 20% 0%, rgba(235,162,68,0.12), transparent 60%),
+      radial-gradient(ellipse at 80% 100%, rgba(235,162,68,0.08), transparent 60%),
+      linear-gradient(180deg, var(--night-1), var(--night-2) 50%, var(--night-1));
     color:var(--ink);
     font-family:'Special Elite', 'Courier New', monospace;
     display:flex;
     justify-content:center;
-    padding:32px 16px 64px;
+    padding:36px 16px 64px;
     position:relative;
   }
   body::before{
     content:"";
     position:fixed;inset:0;
     pointer-events:none;
-    background-image:radial-gradient(circle at 1px 1px, rgba(237,231,217,0.035) 1px, transparent 0);
-    background-size:3px 3px;
+    background-image:radial-gradient(circle at 1px 1px, rgba(243,237,223,0.03) 1px, transparent 0);
+    background-size:4px 4px;
   }
 
   .wrap{width:100%;max-width:560px;position:relative;}
 
   /* ---------- header ---------- */
-  header{text-align:center;margin-bottom:22px;position:relative;}
+  header{text-align:center;margin-bottom:26px;position:relative;}
   .eyebrow{
     font-size:11px;
-    letter-spacing:0.3em;
+    letter-spacing:0.35em;
     text-transform:uppercase;
     color:var(--amber);
-    margin-bottom:8px;
+    margin-bottom:10px;
+    opacity:0.9;
   }
   h1{
     font-family:'Bebas Neue', 'Arial Narrow', sans-serif;
-    font-size:40px;
+    font-size:44px;
     font-weight:400;
-    letter-spacing:0.05em;
+    letter-spacing:0.06em;
     margin:0 0 6px;
     line-height:1;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
   .subtitle{
     color:var(--ink-dim);
@@ -71,55 +74,58 @@
   .edit-toggle{
     position:absolute;
     top:-4px; right:0;
-    background:none;
+    background:rgba(255,255,255,0.03);
     border:1px solid var(--card-line);
     color:var(--ink-dim);
-    width:32px;height:32px;
+    width:34px;height:34px;
     border-radius:50%;
     cursor:pointer;
     font-size:13px;
     display:flex;
     align-items:center;justify-content:center;
-    opacity:0.5;
+    opacity:0.6;
+    transition:all .2s ease;
   }
-  .edit-toggle.active{border-color:var(--amber);color:var(--amber);opacity:1;}
+  .edit-toggle:hover{opacity:1;border-color:var(--amber);}
+  .edit-toggle.active{border-color:var(--amber);color:var(--amber);opacity:1;background:var(--amber-soft);}
 
-  /* ---------- filmstrip ---------- */
-  .tuner{margin:24px 0 26px;}
+  /* ---------- tuner ---------- */
+  .tuner{margin:24px 0 28px;}
   .tuner-line{
     background:var(--night-1);
     border:1px solid var(--card-line);
-    border-radius:3px;
-    padding:6px 8px;
+    border-radius:6px;
+    padding:8px 10px;
+    box-shadow:inset 0 2px 6px rgba(0,0,0,0.4);
   }
   .tuner-ticks{
     display:flex;
     justify-content:space-between;
-    gap:2px;
+    gap:3px;
   }
   .tick{
     flex:1;
     height:12px;
     border-radius:2px;
-    background:rgba(148,144,168,0.18);
+    background:rgba(160,156,183,0.15);
   }
-  .tick.past{background:rgba(148,144,168,0.5);}
+  .tick.past{background:rgba(160,156,183,0.45);}
   .tick.today{
     background:var(--amber);
-    box-shadow:0 0 6px 1px rgba(232,163,61,0.7);
-    animation:pulse 2.2s ease-in-out infinite;
+    box-shadow:0 0 8px 1px rgba(235,162,68,0.8);
+    animation:pulse 2s ease-in-out infinite;
   }
   @keyframes pulse{
     0%,100%{opacity:1;}
-    50%{opacity:0.45;}
+    50%{opacity:0.4;}
   }
   .tuner-label{
     text-align:center;
     font-size:11px;
-    letter-spacing:0.08em;
+    letter-spacing:0.1em;
     text-transform:uppercase;
     color:var(--ink-dim);
-    margin-top:9px;
+    margin-top:10px;
   }
   .tuner-label b{color:var(--amber);font-weight:normal;}
 
@@ -127,13 +133,14 @@
   .grid-panel{
     background:var(--night-3);
     border:1px solid var(--card-line);
-    border-radius:10px;
-    padding:14px;
+    border-radius:12px;
+    padding:16px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
   }
   .grid{
     display:grid;
     grid-template-columns:repeat(5, 1fr);
-    gap:10px 8px;
+    gap:10px;
   }
   @media (max-width:420px){
     .grid{grid-template-columns:repeat(4, 1fr);}
@@ -150,15 +157,15 @@
     cursor:pointer;
     position:relative;
     background:
-      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
-      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
+      radial-gradient(circle 4px at 0 50%, var(--night-3) 4px, transparent 4.5px),
+      radial-gradient(circle 4px at 100% 50%, var(--night-3) 4px, transparent 4.5px),
       var(--night-2);
-    transition:transform .15s ease;
+    transition:all .2s ease;
   }
-  .track:hover{transform:translateY(-2px);}
+  .track:hover{transform:translateY(-3px);border-color:var(--ink-dim);}
   .track .num{
     font-family:'Bebas Neue', sans-serif;
-    font-size:20px;
+    font-size:21px;
     letter-spacing:0.03em;
     color:var(--ink-dim);
   }
@@ -169,31 +176,33 @@
     color:var(--ink-dim);
     opacity:0.7;
   }
-  .track.locked{cursor:default; opacity:0.5;}
-  .track.locked:hover{transform:none;}
+  .track.locked{cursor:default; opacity:0.4;}
+  .track.locked:hover{transform:none;border-color:var(--card-line);}
   .track.unlocked-empty{
     background:
-      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
-      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
-      repeating-linear-gradient(135deg, var(--night-2), var(--night-2) 6px, #262b4e 6px, #262b4e 12px);
+      radial-gradient(circle 4px at 0 50%, var(--night-3) 4px, transparent 4.5px),
+      radial-gradient(circle 4px at 100% 50%, var(--night-3) 4px, transparent 4.5px),
+      repeating-linear-gradient(135deg, var(--night-2), var(--night-2) 6px, #23274a 6px, #23274a 12px);
   }
   .track.unlocked-empty .num{color:var(--amber);}
   .track.unlocked-filled{
     background:
-      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
-      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
+      radial-gradient(circle 4px at 0 50%, var(--night-3) 4px, transparent 4.5px),
+      radial-gradient(circle 4px at 100% 50%, var(--night-3) 4px, transparent 4.5px),
       var(--amber);
     border-style:solid;
     border-color:var(--amber-dim);
+    box-shadow:0 4px 12px rgba(235,162,68,0.2);
   }
   .track.unlocked-filled .num, .track.unlocked-filled .cap{color:var(--amber-ink);}
-  .track.today{box-shadow:0 0 0 2px var(--amber);}
+  .track.today{box-shadow:0 0 0 2px var(--amber), 0 0 12px rgba(235,162,68,0.4);}
   .track .lock-icon{font-size:10px;margin-top:1px;}
 
-  /* ---------- modal & vinyl animation ---------- */
+  /* ---------- modal & player ---------- */
   .overlay{
     position:fixed;inset:0;
-    background:rgba(10,11,22,0.7);
+    background:rgba(8,9,18,0.75);
+    backdrop-filter:blur(4px);
     display:none;
     align-items:center;justify-content:center;
     padding:20px;
@@ -203,24 +212,26 @@
   .modal{
     background:var(--night-3);
     border:1px solid var(--card-line);
-    box-shadow:0 0 0 4px var(--night-2), 0 0 0 5px var(--card-line);
-    border-radius:10px;
-    padding:24px 22px 22px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+    border-radius:14px;
+    padding:26px 24px 24px;
     width:100%;max-width:400px;
     position:relative;
   }
   .modal .close{
-    position:absolute;top:12px;right:14px;
+    position:absolute;top:14px;right:16px;
     background:none;border:none;color:var(--ink-dim);
-    font-size:16px;cursor:pointer;
+    font-size:18px;cursor:pointer;
+    transition:color .2s;
   }
-  .modal .eyebrow{margin-bottom:2px;}
+  .modal .close:hover{color:var(--ink);}
+  .modal .eyebrow{margin-bottom:4px;}
   .modal h2{
     font-family:'Bebas Neue', sans-serif;
-    margin:0 0 2px;font-size:28px;font-weight:400;letter-spacing:0.02em;
+    margin:0 0 2px;font-size:30px;font-weight:400;letter-spacing:0.02em;
     color:var(--amber);
   }
-  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 14px;}
+  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 16px;}
   .modal .message{
     font-size:14px;line-height:1.7;
     color:var(--ink);
@@ -231,52 +242,124 @@
     padding:14px 0;
   }
   
-  /* VINILE ANIMATO */
-  .vinyl-container {
+  /* ---------- GIRADISCHI E VINILE CON TESTINA ---------- */
+  .turntable {
+    position: relative;
+    width: 220px;
+    height: 150px;
+    margin: 10px auto 20px;
+    background: #181b36;
+    border-radius: 12px;
+    border: 1px solid var(--card-line);
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.5), 0 8px 20px rgba(0,0,0,0.3);
     display: flex;
-    justify-content: center;
-    margin: 10px 0 16px;
+    align-items: center;
+    padding-left: 15px;
+    overflow: hidden;
   }
+
+  .vinyl-wrapper {
+    position: relative;
+    width: 124px;
+    height: 124px;
+  }
+
   .vinyl {
-    width: 110px;
-    height: 110px;
-    /* Effetto solchi e finitura lucida del vinile */
+    width: 124px;
+    height: 124px;
     background: 
-      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.05) 36%, transparent 38%, rgba(255,255,255,0.05) 50%, transparent 52%),
-      radial-gradient(circle, #2a2a2a 0%, #111 70%, #000 100%);
+      /* Riflessi lucidi del vinile */
+      linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%),
+      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.03) 36%, transparent 38%, rgba(255,255,255,0.03) 50%, transparent 52%),
+      radial-gradient(circle, #2c2c2c 0%, #111 70%, #050505 100%);
     border-radius: 50%;
-    border: 2px solid var(--card-line);
+    border: 1px solid #333;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.7);
-    /* Rotazione CSS */
-    animation: spin 2.5s linear infinite;
-    animation-play-state: paused; /* In pausa di default */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    animation: spin 2.2s linear infinite;
+    animation-play-state: paused;
   }
-  /* Etichetta interna (Center Label) */
+
   .vinyl::before {
     content: "";
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     background: var(--amber);
     border-radius: 50%;
     border: 2px solid var(--night-1);
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.4);
   }
-  /* Foro centrale */
+
   .vinyl::after {
     content: "";
     position: absolute;
     width: 8px;
     height: 8px;
-    background: var(--night-3);
+    background: #181b36;
     border-radius: 50%;
   }
-  /* Classe attivata via JS durante il 'play' */
+
   .vinyl.playing {
     animation-play-state: running;
+  }
+
+  /* Braccio con Testina (Tonearm) */
+  .tonearm {
+    position: absolute;
+    top: 12px;
+    right: 22px;
+    width: 60px;
+    height: 100px;
+    pointer-events: none;
+    transform-origin: 48px 12px;
+    transform: rotate(-28deg); /* Posizione di riposo */
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+  }
+
+  /* Base del braccio */
+  .tonearm-base {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 20px;
+    height: 20px;
+    background: #555878;
+    border-radius: 50%;
+    border: 2px solid #282a4a;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  }
+
+  /* Asta metallica del braccio */
+  .tonearm-stick {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 4px;
+    height: 70px;
+    background: linear-gradient(90deg, #aaa, #fff, #888);
+    border-radius: 2px;
+  }
+
+  /* Testina / Cartuccia */
+  .tonearm-cartridge {
+    position: absolute;
+    bottom: 18px;
+    right: 5px;
+    width: 10px;
+    height: 16px;
+    background: #d97a3e;
+    border-radius: 2px;
+    transform: rotate(15deg);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+
+  /* Quando l'audio è in play, il braccio si sposta sul vinile */
+  .tonearm.playing {
+    transform: rotate(7deg);
   }
 
   @keyframes spin {
@@ -285,7 +368,7 @@
 
   audio {
     width: 100%;
-    height: 36px;
+    height: 38px;
     border-radius: 999px;
     outline: none;
   }
@@ -293,40 +376,43 @@
   .empty-state{color:var(--ink-dim);font-size:13px;line-height:1.7;}
 
   /* ---------- edit form ---------- */
-  .field{margin-bottom:13px;}
+  .field{margin-bottom:14px;}
   .field label{
     display:block;
     font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--ink-dim);margin-bottom:5px;
+    color:var(--ink-dim);margin-bottom:6px;
   }
   .field input, .field textarea{
     width:100%;
     background:var(--night-2);
     border:1px solid var(--card-line);
-    border-radius:3px;
+    border-radius:6px;
     color:var(--ink);
-    padding:9px 11px;
+    padding:10px 12px;
     font-family:'Special Elite', monospace;
     font-size:13px;
   }
-  .field textarea{resize:vertical;min-height:60px;}
+  .field textarea{resize:vertical;min-height:65px;}
   .field input:focus, .field textarea:focus{outline:2px solid var(--amber);outline-offset:1px;}
-  .row-actions{display:flex;gap:10px;margin-top:16px;}
+  .row-actions{display:flex;gap:10px;margin-top:18px;}
   .btn{
     flex:1;
-    padding:10px;border-radius:999px;border:2px solid var(--card-line);
+    padding:11px;border-radius:999px;border:2px solid var(--card-line);
     background:none;color:var(--ink);
     font-size:11px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;
+    transition:all .2s ease;
   }
   .btn.primary{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);font-weight:700;}
-  .btn.danger{color:#D97A82;border-color:rgba(217,122,130,0.5);}
+  .btn.primary:hover{background:#f3ae4e;}
+  .btn.danger{color:#D97A82;border-color:rgba(217,122,130,0.4);}
+  .btn.danger:hover{background:rgba(217,122,130,0.1);}
 
   .settings-panel{
     background:var(--night-2);
     border:1px dashed var(--card-line);
-    border-radius:8px;
+    border-radius:10px;
     padding:16px;
-    margin-bottom:18px;
+    margin-bottom:20px;
   }
   .settings-panel .settings-title{
     font-size:10px;letter-spacing:0.1em;
@@ -394,9 +480,19 @@
     <button class="close" id="closeView">✕</button>
     <div class="eyebrow" id="viewDayLabel">NOTTE 1</div>
     <div id="viewFilled">
-      <div class="vinyl-container">
-        <div class="vinyl" id="vinylRecord"></div>
+      
+      <!-- GIRADISCHI CON VINILE E TESTINA -->
+      <div class="turntable">
+        <div class="vinyl-wrapper">
+          <div class="vinyl" id="vinylRecord"></div>
+        </div>
+        <div class="tonearm" id="tonearm">
+          <div class="tonearm-base"></div>
+          <div class="tonearm-stick"></div>
+          <div class="tonearm-cartridge"></div>
+        </div>
       </div>
+
       <h2 id="viewSong"></h2>
       <p class="artist" id="viewArtist"></p>
       <p class="message" id="viewMessage"></p>
@@ -422,8 +518,8 @@
       <input id="fArtist" type="text" placeholder="es. Frank Ocean">
     </div>
     <div class="field">
-      <label>link audio (diretto mp3)</label>
-      <input id="fLink" type="text" placeholder="https://.../audio.mp3">
+      <label>link audio / file mp3</label>
+      <input id="fLink" type="text" placeholder="es. audio/canzone1.mp3">
     </div>
     <div class="field">
       <label>messaggio</label>
@@ -438,7 +534,7 @@
 
 <!-- code gate -->
 <div class="overlay" id="codeOverlay">
-  <div class="modal" style="max-width:280px;text-align:center;">
+  <div class="modal" style="max-width:290px;text-align:center;">
     <button class="close" id="closeCode">✕</button>
     <div class="eyebrow">accesso proiezionista</div>
     <div class="field" style="margin-top:14px;">
@@ -482,61 +578,61 @@ function defaultData(){
       1: {
         songTitle: "Nights",
         artist: "Frank Ocean",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // <--- Inserisci link audio MP3
+        link: "audio/canzone1.mp3", // <--- Percorso del file MP3 caricato su GitHub
         message: "Questa è la prima canzone per noi."
       },
       2: {
         songTitle: "Titolo Canzone 2",
         artist: "Artista 2",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        link: "audio/canzone2.mp3",
         message: "Messaggio per la seconda notte."
       },
       3: {
         songTitle: "Titolo Canzone 3",
         artist: "Artista 3",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        link: "audio/canzone3.mp3",
         message: "Messaggio per la terza notte."
       },
       4: {
         songTitle: "Titolo Canzone 4",
         artist: "Artista 4",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+        link: "audio/canzone4.mp3",
         message: "Messaggio per la quarta notte."
       },
       5: {
         songTitle: "Titolo Canzone 5",
         artist: "Artista 5",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+        link: "audio/canzone5.mp3",
         message: "Messaggio per la quinta notte."
       },
       6: {
         songTitle: "Titolo Canzone 6",
         artist: "Artista 6",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+        link: "audio/canzone6.mp3",
         message: "Messaggio per la sesta notte."
       },
       7: {
         songTitle: "Titolo Canzone 7",
         artist: "Artista 7",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+        link: "audio/canzone7.mp3",
         message: "Messaggio per la settima notte."
       },
       8: {
         songTitle: "Titolo Canzone 8",
         artist: "Artista 8",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+        link: "audio/canzone8.mp3",
         message: "Messaggio per l'ottava notte."
       },
       9: {
         songTitle: "Titolo Canzone 9",
         artist: "Artista 9",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+        link: "audio/canzone9.mp3",
         message: "Messaggio per la nona notte."
       },
       10: {
         songTitle: "Titolo Canzone 10",
         artist: "Artista 10",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+        link: "audio/canzone10.mp3",
         message: "Messaggio per la decima notte."
       }
     }
@@ -549,7 +645,7 @@ async function load(){
 }
 
 async function save(){
-  // Il salvataggio locale è disattivato per garantire la sincronizzazione via GitHub
+  // Salvataggio tramite sincronizzazione codice
 }
 
 function dayUnlockDate(dayIndex){
@@ -625,6 +721,7 @@ function openView(dayIndex, state){
   const entry = data.entries[dayIndex];
   const audio = $('audioPlayer');
   const vinyl = $('vinylRecord');
+  const tonearm = $('tonearm');
 
   if(entry && entry.songTitle){
     $('viewFilled').style.display = 'block';
@@ -641,6 +738,7 @@ function openView(dayIndex, state){
       audio.style.display = 'none';
     }
     vinyl.classList.remove('playing');
+    tonearm.classList.remove('playing');
     audio.pause();
   } else {
     $('viewFilled').style.display = 'none';
@@ -650,21 +748,25 @@ function openView(dayIndex, state){
   $('viewOverlay').classList.add('show');
 }
 
-/* Gestione player audio e sincronizzazione rotazione Vinile */
+/* Gestione Player, Vinile e Braccio */
 $('audioPlayer').addEventListener('play', () => {
   $('vinylRecord').classList.add('playing');
+  $('tonearm').classList.add('playing');
 });
 $('audioPlayer').addEventListener('pause', () => {
   $('vinylRecord').classList.remove('playing');
+  $('tonearm').classList.remove('playing');
 });
 $('audioPlayer').addEventListener('ended', () => {
   $('vinylRecord').classList.remove('playing');
+  $('tonearm').classList.remove('playing');
 });
 
 function closeViewModal(){
   $('viewOverlay').classList.remove('show');
   $('audioPlayer').pause();
   $('vinylRecord').classList.remove('playing');
+  $('tonearm').classList.remove('playing');
 }
 
 $('closeView').addEventListener('click', closeViewModal);
