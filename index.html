@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Notti lontane</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap');
+
+  :root{
+    --night-1:#12142A;
+    --night-2:#1B1E3C;
+    --night-3:#252A4E;
+    --card-line:#3B4070;
+    --ink:#EDE7D9;
+    --ink-dim:#9490A8;
+    --amber:#E8A33D;
+    --amber-dim:#6B5A38;
+    --amber-ink:#241C10;
+    --radius:5px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    min-height:100vh;
+    background:
+      radial-gradient(ellipse at 15% -5%, rgba(232,163,61,0.08), transparent 55%),
+      radial-gradient(ellipse at 100% 105%, rgba(232,163,61,0.06), transparent 55%),
+      linear-gradient(180deg, var(--night-1), var(--night-2) 55%, var(--night-1));
+    color:var(--ink);
+    font-family:'Special Elite', 'Courier New', monospace;
+    display:flex;
+    justify-content:center;
+    padding:32px 16px 64px;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;
+    background-image:radial-gradient(circle at 1px 1px, rgba(237,231,217,0.035) 1px, transparent 0);
+    background-size:3px 3px;
+  }
+
+  .wrap{width:100%;max-width:560px;position:relative;}
+
+  /* ---------- header ---------- */
+  header{text-align:center;margin-bottom:22px;position:relative;}
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--amber);
+    margin-bottom:8px;
+  }
+  h1{
+    font-family:'Bebas Neue', 'Arial Narrow', sans-serif;
+    font-size:40px;
+    font-weight:400;
+    letter-spacing:0.05em;
+    margin:0 0 6px;
+    line-height:1;
+  }
+  .subtitle{
+    color:var(--ink-dim);
+    font-size:14px;
+    font-style:italic;
+    margin:0;
+  }
+  .edit-toggle{
+    position:absolute;
+    top:-4px; right:0;
+    background:none;
+    border:1px solid var(--card-line);
+    color:var(--ink-dim);
+    width:32px;height:32px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:13px;
+    display:flex;
+    align-items:center;justify-content:center;
+    opacity:0.5;
+  }
+  .edit-toggle.active{border-color:var(--amber);color:var(--amber);opacity:1;}
+
+  /* ---------- filmstrip ---------- */
+  .tuner{margin:24px 0 26px;}
+  .tuner-line{
+    background:var(--night-1);
+    border:1px solid var(--card-line);
+    border-radius:3px;
+    padding:6px 8px;
+  }
+  .tuner-ticks{
+    display:flex;
+    justify-content:space-between;
+    gap:2px;
+  }
+  .tick{
+    flex:1;
+    height:12px;
+    border-radius:2px;
+    background:rgba(148,144,168,0.18);
+  }
+  .tick.past{background:rgba(148,144,168,0.5);}
+  .tick.today{
+    background:var(--amber);
+    box-shadow:0 0 6px 1px rgba(232,163,61,0.7);
+    animation:pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:1;}
+    50%{opacity:0.45;}
+  }
+  .tuner-label{
+    text-align:center;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    margin-top:9px;
+  }
+  .tuner-label b{color:var(--amber);font-weight:normal;}
+
+  /* ---------- grid ---------- */
+  .grid-panel{
+    background:var(--night-3);
+    border:1px solid var(--card-line);
+    border-radius:10px;
+    padding:14px;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:10px 8px;
+  }
+  @media (max-width:420px){
+    .grid{grid-template-columns:repeat(4, 1fr);}
+  }
+  .track{
+    aspect-ratio:1;
+    border-radius:var(--radius);
+    border:1px dashed var(--card-line);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    cursor:pointer;
+    position:relative;
+    background:
+      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
+      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
+      var(--night-2);
+    transition:transform .15s ease;
+  }
+  .track:hover{transform:translateY(-2px);}
+  .track .num{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:20px;
+    letter-spacing:0.03em;
+    color:var(--ink-dim);
+  }
+  .track .cap{
+    font-size:8px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    opacity:0.7;
+  }
+  .track.locked{cursor:default; opacity:0.5;}
+  .track.locked:hover{transform:none;}
+  .track.unlocked-empty{
+    background:
+      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
+      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
+      repeating-linear-gradient(135deg, var(--night-2), var(--night-2) 6px, #262b4e 6px, #262b4e 12px);
+  }
+  .track.unlocked-empty .num{color:var(--amber);}
+  .track.unlocked-filled{
+    background:
+      radial-gradient(circle 5px at 0 50%, var(--night-3) 5px, transparent 5.5px),
+      radial-gradient(circle 5px at 100% 50%, var(--night-3) 5px, transparent 5.5px),
+      var(--amber);
+    border-style:solid;
+    border-color:var(--amber-dim);
+  }
+  .track.unlocked-filled .num, .track.unlocked-filled .cap{color:var(--amber-ink);}
+  .track.today{box-shadow:0 0 0 2px var(--amber);}
+  .track .lock-icon{font-size:10px;margin-top:1px;}
+
+  /* ---------- modal & vinyl animation ---------- */
+  .overlay{
+    position:fixed;inset:0;
+    background:rgba(10,11,22,0.7);
+    display:none;
+    align-items:center;justify-content:center;
+    padding:20px;
+    z-index:50;
+  }
+  .overlay.show{display:flex;}
+  .modal{
+    background:var(--night-3);
+    border:1px solid var(--card-line);
+    box-shadow:0 0 0 4px var(--night-2), 0 0 0 5px var(--card-line);
+    border-radius:10px;
+    padding:24px 22px 22px;
+    width:100%;max-width:400px;
+    position:relative;
+  }
+  .modal .close{
+    position:absolute;top:12px;right:14px;
+    background:none;border:none;color:var(--ink-dim);
+    font-size:16px;cursor:pointer;
+  }
+  .modal .eyebrow{margin-bottom:2px;}
+  .modal h2{
+    font-family:'Bebas Neue', sans-serif;
+    margin:0 0 2px;font-size:28px;font-weight:400;letter-spacing:0.02em;
+    color:var(--amber);
+  }
+  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 14px;}
+  .modal .message{
+    font-size:14px;line-height:1.7;
+    color:var(--ink);
+    margin:0 0 20px;
+    white-space:pre-wrap;
+    border-top:1px dashed var(--card-line);
+    border-bottom:1px dashed var(--card-line);
+    padding:14px 0;
+  }
+  
+  /* VINILE */
+  .vinyl-container {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 16px;
+  }
+  .vinyl {
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, #2a2a2a 0%, #111 70%, #000 100%);
+    border-radius: 50%;
+    border: 2px solid var(--card-line);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    animation: spin 3s linear infinite;
+    animation-play-state: paused;
+  }
+  .vinyl::before {
+    content: "";
+    width: 32px;
+    height: 32px;
+    background: var(--amber);
+    border-radius: 50%;
+  }
+  .vinyl::after {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--night-3);
+    border-radius: 50%;
+  }
+  .vinyl.playing {
+    animation-play-state: running;
+  }
+  @keyframes spin {
+    100% { transform: rotate(360deg); }
+  }
+
+  audio {
+    width: 100%;
+    height: 36px;
+    border-radius: 999px;
+    outline: none;
+  }
+
+  .empty-state{color:var(--ink-dim);font-size:13px;line-height:1.7;}
+
+  /* ---------- edit form ---------- */
+  .field{margin-bottom:13px;}
+  .field label{
+    display:block;
+    font-size:10px;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink-dim);margin-bottom:5px;
+  }
+  .field input, .field textarea{
+    width:100%;
+    background:var(--night-2);
+    border:1px solid var(--card-line);
+    border-radius:3px;
+    color:var(--ink);
+    padding:9px 11px;
+    font-family:'Special Elite', monospace;
+    font-size:13px;
+  }
+  .field textarea{resize:vertical;min-height:60px;}
+  .field input:focus, .field textarea:focus{outline:2px solid var(--amber);outline-offset:1px;}
+  .row-actions{display:flex;gap:10px;margin-top:16px;}
+  .btn{
+    flex:1;
+    padding:10px;border-radius:999px;border:2px solid var(--card-line);
+    background:none;color:var(--ink);
+    font-size:11px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;
+  }
+  .btn.primary{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);font-weight:700;}
+  .btn.danger{color:#D97A82;border-color:rgba(217,122,130,0.5);}
+
+  .settings-panel{
+    background:var(--night-2);
+    border:1px dashed var(--card-line);
+    border-radius:8px;
+    padding:16px;
+    margin-bottom:18px;
+  }
+  .settings-panel .settings-title{
+    font-size:10px;letter-spacing:0.1em;
+    text-transform:uppercase;color:var(--amber);margin-bottom:12px;
+  }
+  .settings-row{display:flex;gap:10px;}
+  .settings-row .field{flex:1;}
+
+  .status{
+    text-align:center;color:var(--ink-dim);font-size:12px;padding:40px 0;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">biglietto valido una notte</div>
+    <h1 id="title">una canzone per notte</h1>
+    <p class="subtitle" id="subtitle">finché non torniamo sulla stessa onda</p>
+    <button class="edit-toggle" id="editToggle" title="Modifica">✎</button>
+  </header>
+
+  <div class="tuner">
+    <div class="tuner-line">
+      <div class="tuner-ticks" id="ticks"></div>
+    </div>
+    <div class="tuner-label" id="tunerLabel">caricamento…</div>
+  </div>
+
+  <div id="settingsPanel" class="settings-panel" style="display:none;">
+    <div class="settings-title">impostazioni calendario</div>
+    <div class="field">
+      <label>titolo</label>
+      <input id="cfgTitle" type="text">
+    </div>
+    <div class="field">
+      <label>sottotitolo</label>
+      <input id="cfgSubtitle" type="text">
+    </div>
+    <div class="settings-row">
+      <div class="field">
+        <label>notte 1 =</label>
+        <input id="cfgStart" type="date">
+      </div>
+      <div class="field">
+        <label>numero di notti</label>
+        <input id="cfgDays" type="number" min="1" max="31">
+      </div>
+    </div>
+    <button class="btn primary" id="saveSettings" style="width:100%;">salva impostazioni</button>
+  </div>
+
+  <div class="grid-panel">
+    <div id="grid" class="grid"></div>
+  </div>
+
+  <div class="status" id="status" style="display:none;"></div>
+
+</div>
+
+<!-- view modal -->
+<div class="overlay" id="viewOverlay">
+  <div class="modal">
+    <button class="close" id="closeView">✕</button>
+    <div class="eyebrow" id="viewDayLabel">NOTTE 1</div>
+    <div id="viewFilled">
+      <div class="vinyl-container">
+        <div class="vinyl" id="vinylRecord"></div>
+      </div>
+      <h2 id="viewSong"></h2>
+      <p class="artist" id="viewArtist"></p>
+      <p class="message" id="viewMessage"></p>
+      <audio id="audioPlayer" controls></audio>
+    </div>
+    <div id="viewEmpty" class="empty-state" style="display:none;">
+      questa notte non ha ancora una canzone. torna più tardi.
+    </div>
+  </div>
+</div>
+
+<!-- edit modal -->
+<div class="overlay" id="editOverlay">
+  <div class="modal">
+    <button class="close" id="closeEdit">✕</button>
+    <div class="eyebrow" id="editDayLabel">NOTTE 1</div>
+    <div class="field">
+      <label>titolo canzone</label>
+      <input id="fSong" type="text" placeholder="es. Nights">
+    </div>
+    <div class="field">
+      <label>artista</label>
+      <input id="fArtist" type="text" placeholder="es. Frank Ocean">
+    </div>
+    <div class="field">
+      <label>link audio (diretto mp3)</label>
+      <input id="fLink" type="text" placeholder="https://.../audio.mp3">
+    </div>
+    <div class="field">
+      <label>messaggio</label>
+      <textarea id="fMessage" placeholder="perché questa canzone, oggi"></textarea>
+    </div>
+    <div class="row-actions">
+      <button class="btn danger" id="clearEntry">svuota</button>
+      <button class="btn primary" id="saveEntry">salva</button>
+    </div>
+  </div>
+</div>
+
+<!-- code gate -->
+<div class="overlay" id="codeOverlay">
+  <div class="modal" style="max-width:280px;text-align:center;">
+    <button class="close" id="closeCode">✕</button>
+    <div class="eyebrow">accesso proiezionista</div>
+    <div class="field" style="margin-top:14px;">
+      <input id="codeInput" type="password" placeholder="codice" autocomplete="off">
+    </div>
+    <div id="codeError" style="display:none;color:#D97A82;font-size:12px;margin-bottom:10px;">codice sbagliato</div>
+    <button class="btn primary" id="codeConfirm" style="width:100%;">sblocca</button>
+  </div>
+</div>
+
+<script>
+let data = null;
+let editMode = false;
+let activeDay = null;
+
+const $ = (id) => document.getElementById(id);
+let isEditor = false;
+const EDIT_CODE = 'primopiano';
+
+function todayISO(){
+  const d = new Date();
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString().slice(0,10);
+}
+
+function addDays(iso, n){
+  const d = new Date(iso + 'T00:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0,10);
+}
+
+/* =========================================================================
+   MODIFICA QUI LE TUE CANZONI E LA DATA DI INIZIO
+   ========================================================================= */
+function defaultData(){
+  return {
+    title: 'una canzone per notte',
+    subtitle: 'finché non torniamo sulla stessa onda',
+    startDate: '2026-08-01', // <--- Inserisci qui la data di inizio (YYYY-MM-DD)
+    numDays: 10,              // <--- Numero di notti totali
+    entries: {
+      1: {
+        songTitle: "Nights",
+        artist: "Frank Ocean",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // <--- Inserisci il link diretto al file .mp3
+        message: "Questa è la prima canzone per noi."
+      }
+      /* Quando vorrai aggiungere altre canzoni, scommenta e compila qui sotto:
+      ,
+      2: {
+        songTitle: "Titolo seconda canzone",
+        artist: "Artista",
+        link: "https://.../canzone2.mp3",
+        message: "Messaggio del secondo giorno."
+      }
+      */
+    }
+  };
+}
+
+async function load(){
+  data = defaultData();
+  render();
+}
+
+async function save(){
+  // Il salvataggio locale è disattivato per garantire la sincronizzazione via GitHub
+}
+
+function dayUnlockDate(dayIndex){
+  return addDays(data.startDate, dayIndex - 1);
+}
+
+function dayState(dayIndex){
+  const today = todayISO();
+  const unlockDate = dayUnlockDate(dayIndex);
+  const entry = data.entries[dayIndex];
+  if (unlockDate > today) return {locked:true, isToday:false, filled:false, unlockDate};
+  const isToday = unlockDate === today;
+  return {locked:false, isToday, filled: !!(entry && entry.songTitle), unlockDate};
+}
+
+function render(){
+  $('title').textContent = data.title;
+  $('subtitle').textContent = data.subtitle;
+  $('cfgTitle').value = data.title;
+  $('cfgSubtitle').value = data.subtitle;
+  $('cfgStart').value = data.startDate;
+  $('cfgDays').value = data.numDays;
+
+  const ticks = $('ticks');
+  ticks.innerHTML = '';
+  const today = todayISO();
+  let unlockedCount = 0;
+  for(let i=1;i<=data.numDays;i++){
+    const s = dayState(i);
+    if(!s.locked) unlockedCount++;
+    const t = document.createElement('div');
+    t.className = 'tick' + (s.isToday ? ' today' : (!s.locked ? ' past' : ''));
+    ticks.appendChild(t);
+  }
+  const label = $('tunerLabel');
+  if(unlockedCount === 0){
+    label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
+  } else if(unlockedCount >= data.numDays){
+    label.innerHTML = `tutte le <b>${data.numDays}</b> notti sono sbloccate`;
+  } else {
+    label.innerHTML = `notte <b>${unlockedCount}</b> di ${data.numDays}`;
+  }
+
+  const grid = $('grid');
+  grid.innerHTML = '';
+  for(let i=1;i<=data.numDays;i++){
+    const s = dayState(i);
+    const el = document.createElement('div');
+    let cls = 'track';
+    if(s.locked) cls += ' locked';
+    else cls += s.filled ? ' unlocked-filled' : ' unlocked-empty';
+    if(s.isToday) cls += ' today';
+    el.className = cls;
+    el.innerHTML = `<div class="num">${String(i).padStart(2,'0')}</div>` +
+      (s.locked ? `<div class="lock-icon">🔒</div>` : `<div class="cap">notte</div>`);
+    el.addEventListener('click', () => onTrackClick(i, s));
+    grid.appendChild(el);
+  }
+}
+
+function onTrackClick(dayIndex, state){
+  activeDay = dayIndex;
+  if(isEditor && editMode){
+    openEdit(dayIndex);
+    return;
+  }
+  if(state.locked) return;
+  openView(dayIndex, state);
+}
+
+function openView(dayIndex, state){
+  $('viewDayLabel').textContent = 'NOTTE ' + dayIndex;
+  const entry = data.entries[dayIndex];
+  const audio = $('audioPlayer');
+  const vinyl = $('vinylRecord');
+
+  if(entry && entry.songTitle){
+    $('viewFilled').style.display = 'block';
+    $('viewEmpty').style.display = 'none';
+    $('viewSong').textContent = entry.songTitle;
+    $('viewArtist').textContent = entry.artist || '';
+    $('viewMessage').textContent = entry.message || '';
+    
+    if(entry.link){
+      audio.src = entry.link;
+      audio.style.display = 'block';
+    } else {
+      audio.removeAttribute('src');
+      audio.style.display = 'none';
+    }
+    vinyl.classList.remove('playing');
+    audio.pause();
+  } else {
+    $('viewFilled').style.display = 'none';
+    $('viewEmpty').style.display = 'block';
+    audio.pause();
+  }
+  $('viewOverlay').classList.add('show');
+}
+
+/* Gestione player e animazione Vinile */
+$('audioPlayer').addEventListener('play', () => {
+  $('vinylRecord').classList.add('playing');
+});
+$('audioPlayer').addEventListener('pause', () => {
+  $('vinylRecord').classList.remove('playing');
+});
+
+function closeViewModal(){
+  $('viewOverlay').classList.remove('show');
+  $('audioPlayer').pause();
+}
+
+$('closeView').addEventListener('click', closeViewModal);
+$('viewOverlay').addEventListener('click', (e) => { 
+  if(e.target === $('viewOverlay')) closeViewModal(); 
+});
+
+function openEdit(dayIndex){
+  $('editDayLabel').textContent = 'NOTTE ' + dayIndex;
+  const entry = data.entries[dayIndex] || {};
+  $('fSong').value = entry.songTitle || '';
+  $('fArtist').value = entry.artist || '';
+  $('fLink').value = entry.link || '';
+  $('fMessage').value = entry.message || '';
+  $('editOverlay').classList.add('show');
+}
+
+$('closeEdit').addEventListener('click', () => $('editOverlay').classList.remove('show'));
+$('editOverlay').addEventListener('click', (e) => { if(e.target === $('editOverlay')) $('editOverlay').classList.remove('show'); });
+
+$('saveEntry').addEventListener('click', async () => {
+  const songTitle = $('fSong').value.trim();
+  data.entries[activeDay] = {
+    songTitle,
+    artist: $('fArtist').value.trim(),
+    link: $('fLink').value.trim(),
+    message: $('fMessage').value.trim()
+  };
+  await save();
+  render();
+  $('editOverlay').classList.remove('show');
+});
+
+$('clearEntry').addEventListener('click', async () => {
+  delete data.entries[activeDay];
+  await save();
+  render();
+  $('editOverlay').classList.remove('show');
+});
+
+$('editToggle').addEventListener('click', () => {
+  if(isEditor){
+    editMode = !editMode;
+    $('editToggle').classList.toggle('active', editMode);
+    $('settingsPanel').style.display = editMode ? 'block' : 'none';
+  } else {
+    $('codeInput').value = '';
+    $('codeError').style.display = 'none';
+    $('codeOverlay').classList.add('show');
+  }
+});
+
+$('closeCode').addEventListener('click', () => $('codeOverlay').classList.remove('show'));
+$('codeOverlay').addEventListener('click', (e) => { if(e.target === $('codeOverlay')) $('codeOverlay').classList.remove('show'); });
+
+function tryUnlock(){
+  if($('codeInput').value === EDIT_CODE){
+    isEditor = true;
+    editMode = true;
+    $('codeOverlay').classList.remove('show');
+    $('editToggle').classList.add('active');
+    $('settingsPanel').style.display = 'block';
+  } else {
+    $('codeError').style.display = 'block';
+    $('codeInput').value = '';
+  }
+}
+$('codeConfirm').addEventListener('click', tryUnlock);
+$('codeInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') tryUnlock(); });
+
+$('saveSettings').addEventListener('click', async () => {
+  data.title = $('cfgTitle').value.trim() || data.title;
+  data.subtitle = $('cfgSubtitle').value.trim();
+  data.startDate = $('cfgStart').value || data.startDate;
+  data.numDays = Math.max(1, Math.min(31, parseInt($('cfgDays').value) || data.numDays));
+  await save();
+  render();
+});
+
+load();
+</script>
+</body>
+</html>
