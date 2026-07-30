@@ -708,23 +708,15 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
-/* GESTIONE SBLOCCO SITO DALLE ORE 19:00 */
+/* SBLOCCO BASATO ESCLUSIVAMENTE SUL GIORNO (SENZA VINCOLO DI ORARIO) */
 function dayState(dayIndex){
-  const now = new Date();
   const today = todayISO();
-  const currentHour = now.getHours();
-  
   const unlockDate = dayUnlockDate(dayIndex);
   const entry = data.entries[dayIndex];
 
   // Se la data deve ancora arrivare
   if (unlockDate > today) {
     return {locked:true, isToday:false, filled:false, unlockDate};
-  }
-  
-  // Se è la data di oggi ma non sono ancora le 19:00
-  if (unlockDate === today && currentHour < 19) {
-    return {locked:true, isToday:true, filled:false, unlockDate};
   }
 
   const isToday = unlockDate === today;
@@ -752,12 +744,7 @@ function render(){
   }
   const label = $('tunerLabel');
   if(unlockedCount === 0){
-    const now = new Date();
-    if(data.startDate === today && now.getHours() < 19){
-      label.innerHTML = `si sblocca stasera alle <b>19:00</b>`;
-    } else {
-      label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
-    }
+    label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
   } else if(unlockedCount >= data.numDays){
     label.innerHTML = `tutte le <b>${data.numDays}</b> notti sono sbloccate`;
   } else {
