@@ -193,7 +193,7 @@
   }
   .tuner-label b{color:var(--amber);font-weight:normal;}
 
-  /* ---------- NUOVA GRAFICA: SCAFFALE PORTA-VINILI ---------- */
+  /* ---------- SCAFFALE PORTA-VINILI ---------- */
   .grid-panel {
     background: linear-gradient(180deg, #18110b 0%, #0d0906 100%);
     border: 4px solid #2b1810;
@@ -205,7 +205,6 @@
     position: relative;
   }
 
-  /* La base in legno dello scaffale */
   .grid-panel::after {
     content: "";
     position: absolute;
@@ -225,7 +224,7 @@
     padding-bottom: 2px;
   }
 
-  /* COSTOLA DEL VINILE (DISCO VISTO DI TAGLIO) */
+  /* COSTOLA DEL VINILE */
   .track {
     flex: 1;
     height: 100%;
@@ -238,11 +237,62 @@
     align-items: center;
     justify-content: space-between;
     padding: 12px 2px;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s ease;
     box-shadow: -3px 0 6px rgba(0,0,0,0.5);
   }
 
-  /* Effetto piega/costola del cartone */
+  /* Disco fisico che fuoriesce durante l'animazione */
+  .track-disc {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    top: 10px;
+    left: 50%;
+    margin-left: -70px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.08) 36%, transparent 38%),
+      radial-gradient(circle, #222 0%, #111 70%, #000 100%);
+    border: 2px solid #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 10;
+    transition: none;
+  }
+  .track-disc::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45px; height: 45px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #FFC064, var(--amber));
+    border: 2px solid #111;
+  }
+
+  /* ANIMAZIONE DI ESTRAZIONE VINILE */
+  .track.extracting {
+    z-index: 30;
+    animation: extractTrack 0.7s forwards cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .track.extracting .track-disc {
+    opacity: 1;
+    animation: extractDisc 0.7s forwards cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  @keyframes extractTrack {
+    0% { transform: translateY(-16px); }
+    50% { transform: translateY(-60px); }
+    100% { transform: translateY(-40px) scale(1.05); }
+  }
+
+  @keyframes extractDisc {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(-90px) rotate(180deg); opacity: 1; }
+  }
+
   .track::before {
     content: "";
     position: absolute;
@@ -277,7 +327,7 @@
     transform: rotate(180deg);
   }
 
-  /* STATO 1: BLOCCATO (GRIGIO/SCURO E PIATTO) */
+  /* BLOCCATO */
   .track.locked {
     cursor: default;
     background: #141622;
@@ -287,7 +337,7 @@
   .track.locked .num { color: #555870; }
   .track.locked .cap { color: #44475a; }
 
-  /* STATO 2: PASSATI SBLOCCATI (CUSTODIA COLORATA E SOBRIA) */
+  /* PASSATI SBLOCCATI */
   .track.past-filled {
     background: linear-gradient(180deg, #282e54 0%, #171b33 100%);
     border: 1px solid #3c4578;
@@ -300,7 +350,7 @@
     box-shadow: -4px 10px 15px rgba(0,0,0,0.7);
   }
 
-  /* STATO 3: OGGI SBLOCCATO (SPORGE DALLO SCAFFALE E BRILLA) */
+  /* OGGI SBLOCCATO (DISPONIBILE) */
   .track.today-active {
     background: linear-gradient(180deg, #e69524 0%, #9e5b0d 100%);
     border: 1px solid var(--amber);
@@ -460,7 +510,6 @@
     animation-play-state: running;
   }
 
-  /* BRACCIO METALLICO */
   .tonearm {
     position: absolute;
     top: 8px;
@@ -527,7 +576,6 @@
 
   .empty-state{color:var(--ink-dim);font-size:13px;line-height:1.7;}
 
-  /* ---------- EDIT FORM ---------- */
   .field{margin-bottom:14px;}
   .field label{
     display:block;
@@ -813,18 +861,20 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
-// Logica di sblocco: esattamente alle 19:00 del giorno di riferimento
+/* CORREZIONE: Sblocco basato sul timestamp esatto (Giorno X alle ore 19:00:00) */
 function dayState(dayIndex){
   const now = new Date();
   const unlockDayStr = dayUnlockDate(dayIndex);
   
+  // Data ed ora esatta di sblocco della traccia
   const unlockDateTime = new Date(unlockDayStr + 'T19:00:00');
   
   const today = todayISO();
   const isToday = unlockDayStr === today;
   const entry = data.entries[dayIndex];
 
-  if (now < unlockDateTime) {
+  // Se l'orario/data attuale è precedente alle 19:00 di oggi -> BLOCCATA!
+  if (now.getTime() < unlockDateTime.getTime()) {
     return {locked: true, isToday: isToday, filled: false, unlockDate: unlockDayStr};
   }
 
@@ -865,7 +915,6 @@ function render(){
     const s = dayState(i);
     const el = document.createElement('div');
     
-    // Assegnazione classi per le costole nello scaffale
     let cls = 'track';
     if(s.locked) {
       cls += ' locked';
@@ -882,25 +931,32 @@ function render(){
     else if (s.locked) subText = '🔒';
 
     el.innerHTML = `
+      <div class="track-disc"></div>
       <div class="track-content">
         <div class="num">${String(i).padStart(2,'0')}</div>
         <div class="cap">${subText}</div>
       </div>
     `;
     
-    el.addEventListener('click', () => onTrackClick(i, s));
+    el.addEventListener('click', () => onTrackClick(i, s, el));
     grid.appendChild(el);
   }
 }
 
-function onTrackClick(dayIndex, state){
+function onTrackClick(dayIndex, state, element){
   activeDay = dayIndex;
   if(isEditor && editMode){
     openEdit(dayIndex);
     return;
   }
   if(state.locked) return;
-  openView(dayIndex, state);
+
+  // ANIMAZIONE DI ESTRAZIONE E APERTURA MODALE
+  element.classList.add('extracting');
+  setTimeout(() => {
+    openView(dayIndex, state);
+    element.classList.remove('extracting');
+  }, 650);
 }
 
 function openView(dayIndex, state){
