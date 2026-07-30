@@ -231,33 +231,41 @@
     padding:14px 0;
   }
   
-  /* VINILE */
+  /* VINILE ANIMATO */
   .vinyl-container {
     display: flex;
     justify-content: center;
     margin: 10px 0 16px;
   }
   .vinyl {
-    width: 100px;
-    height: 100px;
-    background: radial-gradient(circle, #2a2a2a 0%, #111 70%, #000 100%);
+    width: 110px;
+    height: 110px;
+    /* Effetto solchi e finitura lucida del vinile */
+    background: 
+      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.05) 36%, transparent 38%, rgba(255,255,255,0.05) 50%, transparent 52%),
+      radial-gradient(circle, #2a2a2a 0%, #111 70%, #000 100%);
     border-radius: 50%;
     border: 2px solid var(--card-line);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-    animation: spin 3s linear infinite;
-    animation-play-state: paused;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.7);
+    /* Rotazione CSS */
+    animation: spin 2.5s linear infinite;
+    animation-play-state: paused; /* In pausa di default */
   }
+  /* Etichetta interna (Center Label) */
   .vinyl::before {
     content: "";
-    width: 32px;
-    height: 32px;
+    width: 38px;
+    height: 38px;
     background: var(--amber);
     border-radius: 50%;
+    border: 2px solid var(--night-1);
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
   }
+  /* Foro centrale */
   .vinyl::after {
     content: "";
     position: absolute;
@@ -266,9 +274,11 @@
     background: var(--night-3);
     border-radius: 50%;
   }
+  /* Classe attivata via JS durante il 'play' */
   .vinyl.playing {
     animation-play-state: running;
   }
+
   @keyframes spin {
     100% { transform: rotate(360deg); }
   }
@@ -466,24 +476,69 @@ function defaultData(){
   return {
     title: 'JUKEBOX',
     subtitle: 'finché non ci rivedremo',
-    startDate: '2026-07-30', // <--- Inserisci qui la data di inizio (YYYY-MM-DD)
-    numDays: 10,              // <--- Numero di notti totali
+    startDate: '2026-07-30', // <--- DATA DI INIZIO (YYYY-MM-DD)
+    numDays: 10,              // <--- NUMERO NOTTI TOTALI
     entries: {
       1: {
         songTitle: "Nights",
         artist: "Frank Ocean",
-        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // <--- Inserisci il link diretto al file .mp3
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // <--- Inserisci link audio MP3
         message: "Questa è la prima canzone per noi."
-      }
-      /* Quando vorrai aggiungere altre canzoni, scommenta e compila qui sotto:
-      ,
+      },
       2: {
-        songTitle: "Titolo seconda canzone",
-        artist: "Artista",
-        link: "https://.../canzone2.mp3",
-        message: "Messaggio del secondo giorno."
+        songTitle: "Titolo Canzone 2",
+        artist: "Artista 2",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        message: "Messaggio per la seconda notte."
+      },
+      3: {
+        songTitle: "Titolo Canzone 3",
+        artist: "Artista 3",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        message: "Messaggio per la terza notte."
+      },
+      4: {
+        songTitle: "Titolo Canzone 4",
+        artist: "Artista 4",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
+        message: "Messaggio per la quarta notte."
+      },
+      5: {
+        songTitle: "Titolo Canzone 5",
+        artist: "Artista 5",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3",
+        message: "Messaggio per la quinta notte."
+      },
+      6: {
+        songTitle: "Titolo Canzone 6",
+        artist: "Artista 6",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3",
+        message: "Messaggio per la sesta notte."
+      },
+      7: {
+        songTitle: "Titolo Canzone 7",
+        artist: "Artista 7",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3",
+        message: "Messaggio per la settima notte."
+      },
+      8: {
+        songTitle: "Titolo Canzone 8",
+        artist: "Artista 8",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3",
+        message: "Messaggio per l'ottava notte."
+      },
+      9: {
+        songTitle: "Titolo Canzone 9",
+        artist: "Artista 9",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3",
+        message: "Messaggio per la nona notte."
+      },
+      10: {
+        songTitle: "Titolo Canzone 10",
+        artist: "Artista 10",
+        link: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3",
+        message: "Messaggio per la decima notte."
       }
-      */
     }
   };
 }
@@ -595,17 +650,21 @@ function openView(dayIndex, state){
   $('viewOverlay').classList.add('show');
 }
 
-/* Gestione player e animazione Vinile */
+/* Gestione player audio e sincronizzazione rotazione Vinile */
 $('audioPlayer').addEventListener('play', () => {
   $('vinylRecord').classList.add('playing');
 });
 $('audioPlayer').addEventListener('pause', () => {
   $('vinylRecord').classList.remove('playing');
 });
+$('audioPlayer').addEventListener('ended', () => {
+  $('vinylRecord').classList.remove('playing');
+});
 
 function closeViewModal(){
   $('viewOverlay').classList.remove('show');
   $('audioPlayer').pause();
+  $('vinylRecord').classList.remove('playing');
 }
 
 $('closeView').addEventListener('click', closeViewModal);
