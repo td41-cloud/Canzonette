@@ -44,6 +44,58 @@
     background-size:4px 4px;
   }
 
+  /* ---------- WELCOME SCREEN ---------- */
+  .welcome-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, var(--night-1), var(--night-2));
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    text-align: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  .welcome-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .welcome-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    color: var(--amber);
+    margin: 0 0 10px;
+    letter-spacing: 0.05em;
+    text-shadow: 0 4px 15px rgba(235,162,68,0.3);
+  }
+  .welcome-sub {
+    font-size: 15px;
+    color: var(--ink-dim);
+    font-style: italic;
+    margin-bottom: 30px;
+  }
+  .enter-btn {
+    padding: 14px 32px;
+    border-radius: 999px;
+    border: 2px solid var(--amber);
+    background: var(--amber);
+    color: var(--amber-ink);
+    font-family: 'Special Elite', monospace;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(235,162,68,0.4);
+    transition: all 0.3s ease;
+  }
+  .enter-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(235,162,68,0.6);
+  }
+
   .wrap{width:100%;max-width:560px;position:relative;}
 
   /* ---------- header ---------- */
@@ -268,7 +320,6 @@
     width: 124px;
     height: 124px;
     background: 
-      /* Riflessi lucidi del vinile */
       linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.08) 50%, transparent 60%),
       radial-gradient(circle, transparent 35%, rgba(255,255,255,0.03) 36%, transparent 38%, rgba(255,255,255,0.03) 50%, transparent 52%),
       radial-gradient(circle, #2c2c2c 0%, #111 70%, #050505 100%);
@@ -306,7 +357,6 @@
     animation-play-state: running;
   }
 
-  /* Braccio con Testina (Tonearm) */
   .tonearm {
     position: absolute;
     top: 12px;
@@ -315,12 +365,11 @@
     height: 100px;
     pointer-events: none;
     transform-origin: 48px 12px;
-    transform: rotate(-28deg); /* Posizione di riposo */
+    transform: rotate(-28deg);
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
   }
 
-  /* Base del braccio */
   .tonearm-base {
     position: absolute;
     top: 2px;
@@ -333,7 +382,6 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.4);
   }
 
-  /* Asta metallica del braccio */
   .tonearm-stick {
     position: absolute;
     top: 10px;
@@ -344,7 +392,6 @@
     border-radius: 2px;
   }
 
-  /* Testina / Cartuccia */
   .tonearm-cartridge {
     position: absolute;
     bottom: 18px;
@@ -357,7 +404,6 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  /* Quando l'audio è in play, il braccio si sposta sul vinile */
   .tonearm.playing {
     transform: rotate(7deg);
   }
@@ -427,6 +473,14 @@
 </style>
 </head>
 <body>
+
+<!-- SCHERMATA INTRODUTTIVA -->
+<div class="welcome-screen" id="welcomeScreen">
+  <h1 class="welcome-title">Bentornata Anna</h1>
+  <p class="welcome-sub">C'è una nuova canzone per te stasera...</p>
+  <button class="enter-btn" id="enterBtn">Apri il Jukebox</button>
+</div>
+
 <div class="wrap">
 
   <header>
@@ -481,7 +535,6 @@
     <div class="eyebrow" id="viewDayLabel">NOTTE 1</div>
     <div id="viewFilled">
       
-      <!-- GIRADISCHI CON VINILE E TESTINA -->
       <div class="turntable">
         <div class="vinyl-wrapper">
           <div class="vinyl" id="vinylRecord"></div>
@@ -554,6 +607,11 @@ const $ = (id) => document.getElementById(id);
 let isEditor = false;
 const EDIT_CODE = 'primopiano';
 
+/* Gestione Schermata di Benvenuto */
+$('enterBtn').addEventListener('click', () => {
+  $('welcomeScreen').classList.add('hidden');
+});
+
 function todayISO(){
   const d = new Date();
   return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString().slice(0,10);
@@ -572,14 +630,14 @@ function defaultData(){
   return {
     title: 'JUKEBOX',
     subtitle: 'finché non ci rivedremo',
-    startDate: '2026-07-30', // <--- DATA DI INIZIO (YYYY-MM-DD)
-    numDays: 10,              // <--- NUMERO NOTTI TOTALI
+    startDate: '2026-07-30', 
+    numDays: 10,              
     entries: {
       1: {
-        songTitle: "Nights",
-        artist: "Frank Ocean",
-        link: "audio/canzone1.mp3", // <--- Percorso del file MP3 caricato su GitHub
-        message: "Questa è la prima canzone per noi."
+        songTitle: "01",
+        artist: "Unknown",
+        link: "Fulminacci - Le biciclette [ARmBTwope68].mp3", 
+        message: "Test"
       },
       2: {
         songTitle: "Titolo Canzone 2",
@@ -645,7 +703,7 @@ async function load(){
 }
 
 async function save(){
-  // Salvataggio tramite sincronizzazione codice
+  // Sincronizzazione via GitHub
 }
 
 function dayUnlockDate(dayIndex){
@@ -748,7 +806,6 @@ function openView(dayIndex, state){
   $('viewOverlay').classList.add('show');
 }
 
-/* Gestione Player, Vinile e Braccio */
 $('audioPlayer').addEventListener('play', () => {
   $('vinylRecord').classList.add('playing');
   $('tonearm').classList.add('playing');
