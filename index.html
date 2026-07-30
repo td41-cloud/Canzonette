@@ -11,14 +11,14 @@
     --night-1:#05060B;
     --night-2:#0E1020;
     --night-3:#161832;
-    --card-line:#2E335B;
+    --card-line:#3E4473;
     --ink:#F8F4EA;
     --ink-dim:#8A85A5;
     --amber:#FFB042;
     --amber-glow:rgba(255, 176, 66, 0.5);
     --amber-soft:rgba(255, 176, 66, 0.12);
     --amber-ink:#1A1205;
-    --wood-dark:#1D0E09;
+    --wood-dark:#180B07;
     --wood-light:#3A2016;
   }
 
@@ -34,7 +34,7 @@
     font-family:'Special Elite', 'Courier New', monospace;
     display:flex;
     justify-content:center;
-    padding:30px 16px 60px;
+    padding:20px 12px 60px;
     position:relative;
   }
   body::before{
@@ -65,69 +65,57 @@
   }
   .welcome-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
+    font-size: 58px;
     color: var(--amber);
     margin: 0 0 10px;
     letter-spacing: 0.08em;
     text-shadow: 0 0 25px var(--amber-glow);
-    animation: floatTitle 4s ease-in-out infinite alternate;
-  }
-  @keyframes floatTitle {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-8px); }
   }
   .welcome-sub {
-    font-size: 16px;
+    font-size: 15px;
     color: var(--ink-dim);
     font-style: italic;
-    margin-bottom: 35px;
+    margin-bottom: 30px;
   }
   .enter-btn {
-    padding: 16px 40px;
+    padding: 16px 36px;
     border-radius: 999px;
     border: 2px solid var(--amber);
     background: linear-gradient(135deg, #FFC064, var(--amber));
     color: var(--amber-ink);
     font-family: 'Special Elite', monospace;
-    font-size: 14px;
+    font-size: 13px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 6px 25px var(--amber-glow);
-    animation: pulseBtn 2.5s ease-in-out infinite;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  @keyframes pulseBtn {
-    0%, 100% { transform: scale(1); box-shadow: 0 6px 25px var(--amber-glow); }
-    50% { transform: scale(1.04); box-shadow: 0 10px 35px rgba(255, 176, 66, 0.7); }
   }
 
-  .wrap{width:100%;max-width:540px;position:relative;}
+  .wrap{width:100%;max-width:500px;position:relative;}
 
   /* HEADER */
-  header{text-align:center;margin-bottom:25px;position:relative;}
+  header{text-align:center;margin-bottom:20px;position:relative;}
   .eyebrow{
     font-size:11px;
-    letter-spacing:0.4em;
+    letter-spacing:0.35em;
     text-transform:uppercase;
     color:var(--amber);
-    margin-bottom:8px;
+    margin-bottom:6px;
     text-shadow: 0 0 10px var(--amber-glow);
   }
   h1{
     font-family:'Bebas Neue', sans-serif;
-    font-size:56px;
+    font-size:52px;
     font-weight:400;
     letter-spacing:0.08em;
-    margin:0 0 4px;
+    margin:0 0 2px;
     line-height:1;
     color: var(--ink);
-    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
   .subtitle{
     color:var(--ink-dim);
-    font-size:14px;
+    font-size:13px;
     font-style:italic;
     margin:0;
   }
@@ -143,14 +131,11 @@
     font-size:14px;
     display:flex;
     align-items:center;justify-content:center;
-    opacity:0.7;
-    transition:all .2s ease;
   }
-  .edit-toggle:hover{opacity:1;border-color:var(--amber); color:var(--amber);}
-  .edit-toggle.active{border-color:var(--amber);color:var(--amber);opacity:1;background:var(--amber-soft); box-shadow:0 0 12px var(--amber-glow);}
+  .edit-toggle.active{border-color:var(--amber);color:var(--amber);background:var(--amber-soft);}
 
   /* TUNER */
-  .tuner{margin:20px 0 28px;}
+  .tuner{margin:16px 0 24px;}
   .tuner-line{
     background:var(--night-1);
     border:1px solid var(--card-line);
@@ -161,68 +146,83 @@
   .tuner-ticks{display:flex;justify-content:space-between;gap:4px;}
   .tick{
     flex:1;
-    height:10px;
+    height:8px;
     border-radius:2px;
     background:rgba(138, 133, 165, 0.15);
-    transition: background 0.3s ease;
   }
   .tick.past{background:rgba(138, 133, 165, 0.4);}
-  .tick.today{
-    background:var(--amber);
-    box-shadow:0 0 10px var(--amber-glow);
-  }
+  .tick.today{background:var(--amber);box-shadow:0 0 8px var(--amber-glow);}
   .tuner-label{
     text-align:center;
     font-size:11px;
     letter-spacing:0.12em;
     text-transform:uppercase;
     color:var(--ink-dim);
-    margin-top:10px;
+    margin-top:8px;
   }
   .tuner-label b{color:var(--amber);font-weight:normal;}
 
   /* ---------------------------------------------------- */
-  /* LA RASTRELLIERA PORTAVINILI VINTAGE (RACK)           */
+  /* RASTRELLIERA RACK VINTAGE CON VINILI SPUNTANTI       */
   /* ---------------------------------------------------- */
   .rack-container {
-    background: linear-gradient(180deg, var(--wood-dark) 0%, #110906 100%);
+    background: linear-gradient(180deg, var(--wood-dark) 0%, #0A0503 100%);
     border: 3px solid #2d1810;
     border-radius: 16px;
-    padding: 24px 16px 20px;
+    padding: 20px 14px;
     box-shadow: 
-      inset 0 0 25px rgba(0,0,0,0.9),
-      0 15px 35px rgba(0,0,0,0.6);
+      inset 0 0 25px rgba(0,0,0,0.95),
+      0 12px 30px rgba(0,0,0,0.7);
     position: relative;
-  }
-
-  /* Supporti metallici della rastrelliera */
-  .rack-container::before {
-    content: "";
-    position: absolute;
-    top: 10px; left: 15px; right: 15px; bottom: 10px;
-    border: 1px solid rgba(255, 176, 66, 0.15);
-    border-radius: 10px;
-    pointer-events: none;
   }
 
   .rack-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px 16px;
+    gap: 18px 12px;
   }
 
-  @media (min-width: 480px) {
-    .rack-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  /* BUSTA DI VINILE NELLA RASTRELLIERA */
+  /* BUSTA DI VINILE */
   .album-slot {
     position: relative;
-    height: 140px;
+    height: 125px;
     cursor: pointer;
-    perspective: 800px;
+    overflow: visible;
+  }
+
+  /* IL DISCO CHE SPUNTA DA DIETRO */
+  .album-disc {
+    position: absolute;
+    top: 6px;
+    right: 4px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    background: 
+      radial-gradient(circle at 50% 50%, #222 0%, #111 60%, #000 100%),
+      repeating-radial-gradient(circle, rgba(255,255,255,0.05) 0px, transparent 2px, rgba(255,255,255,0.05) 4px);
+    border: 1px solid #333;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transform: translateX(18px) rotate(15deg);
+    transition: transform 0.3s ease;
+  }
+
+  .album-disc-label {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #252840;
+    border: 2px solid #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 15px;
+    color: var(--ink-dim);
   }
 
   .album-sleeve {
@@ -230,782 +230,71 @@
     bottom: 0;
     left: 0;
     width: 82%;
-    height: 115px;
-    background: linear-gradient(145deg, #1c1f38, #101224);
+    height: 105px;
+    background: linear-gradient(145deg, #1A1D36, #0E1022);
     border: 1px solid var(--card-line);
-    border-radius: 6px;
+    border-radius: 8px;
     padding: 10px;
-    box-shadow: -4px 6px 12px rgba(0,0,0,0.7);
+    box-shadow: -3px 4px 10px rgba(0,0,0,0.6);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 2;
-    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: all 0.25s ease;
   }
 
-  .album-sleeve::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 80%);
-    border-radius: 5px;
-    pointer-events: none;
-  }
-
-  /* DISCO CHE ESCE DALLA BUSTA */
-  .album-disc {
-    position: absolute;
-    bottom: 8px;
-    right: 2px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: 
-      radial-gradient(circle at 50% 50%, #2b2b2b 0%, #111 60%, #050505 100%),
-      repeating-radial-gradient(circle, rgba(255,255,255,0.04) 0px, transparent 2px, rgba(255,255,255,0.04) 4px);
-    border: 1px solid #333;
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  /* Etichetta centrale del mini vinile */
-  .album-disc-label {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #8A85A5, #4A4665);
-    border: 2px solid #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 14px;
-    color: #fff;
-  }
-
-  /* HOVER EFFECT: estrazione del vinile */
-  .album-slot:hover .album-disc {
-    transform: translateX(20px) rotate(35deg);
-  }
-  .album-slot:hover .album-sleeve {
-    transform: translateY(-2px);
-    border-color: var(--amber);
-  }
-
-  /* CONTENUTI BUSTA */
   .sleeve-num {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
+    font-size: 32px;
     line-height: 1;
     color: var(--ink-dim);
   }
   .sleeve-tag {
-    font-size: 8.5px;
+    font-size: 9px;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--ink-dim);
-    opacity: 0.7;
   }
 
-  /* STATO 1: BLOCCATO */
+  /* INTERAZIONI HOVER E STATI */
+  .album-slot:hover .album-disc {
+    transform: translateX(28px) rotate(40deg);
+  }
+  .album-slot:hover .album-sleeve {
+    border-color: var(--amber);
+  }
+
+  /* STATO BLOCCATO */
   .album-slot.locked {
-    cursor: default;
-    opacity: 0.35;
+    opacity: 0.45;
   }
-  .album-slot.locked .album-disc { display: none; }
-  .album-slot.locked:hover .album-sleeve { transform: none; border-color: var(--card-line); }
+  .album-slot.locked .album-disc {
+    transform: translateX(6px); /* Spunta solo un pochino */
+  }
 
-  /* STATO 2: OGGI (DISPONIBILE) */
+  /* STATO OGGI / SBLOCCATO */
   .album-slot.today-active .album-sleeve {
     border: 2px solid var(--amber);
-    background: linear-gradient(145deg, #2A2016, #161832);
-    box-shadow: 0 0 18px var(--amber-glow);
+    background: linear-gradient(145deg, #2D2115, #121428);
+    box-shadow: 0 0 15px var(--amber-glow);
   }
   .album-slot.today-active .sleeve-num {
     color: var(--amber);
     text-shadow: 0 0 8px var(--amber-glow);
   }
   .album-slot.today-active .sleeve-tag {
-    color: var(--ink);
+    color: var(--amber);
     font-weight: bold;
-    opacity: 1;
-  }
-  .album-slot.today-active .album-disc {
-    transform: translateX(12px) rotate(10deg);
   }
   .album-slot.today-active .album-disc-label {
     background: linear-gradient(135deg, #FFC064, var(--amber));
     color: var(--amber-ink);
   }
 
-  /* STATO 3: GIÀ ASCOLTATE (PASSATE) */
-  .album-slot.past-filled .album-sleeve {
-    border-color: rgba(255, 176, 66, 0.4);
-  }
-  .album-slot.past-filled .sleeve-num { color: var(--ink); }
-  .album-slot.past-filled .album-disc-label {
-    background: var(--amber-dim);
-    color: var(--amber);
-  }
-
-  /* ---------------------------------------------------- */
-  /* MODAL & GIRADISCHI SPETTACOLARE                      */
-  /* ---------------------------------------------------- */
+  /* MODAL MODELLO GIRADISCHI */
   .overlay{
     position:fixed;inset:0;
     background:rgba(4,5,10,0.88);
-    backdrop-filter:blur(10px);
-    display:none;
-    align-items:center;justify-content:center;
-    padding:20px;
-    z-index:50;
-    opacity: 0;
-    transition: opacity 0.35s ease;
-  }
-  .overlay.show{
-    display:flex;
-    opacity: 1;
-  }
-
-  .modal{
-    background: linear-gradient(160deg, var(--night-3), #101222);
-    border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 30px 60px rgba(0,0,0,0.9), 0 0 40px rgba(255, 176, 66, 0.12);
-    border-radius:24px;
-    padding:28px 22px 24px;
-    width:100%;max-width:400px;
-    position:relative;
-    transform: translateY(25px) scale(0.92);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .overlay.show .modal {
-    transform: translateY(0) scale(1);
-  }
-  
-  .modal .close{
-    position:absolute;top:16px;right:16px;
-    background:rgba(255,255,255,0.06);
-    border:none;color:var(--ink-dim);
-    width: 32px; height: 32px; border-radius: 50%;
-    font-size:14px;cursor:pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition:all .2s;
-  }
-  .modal .close:hover{color:var(--ink); background:rgba(255,255,255,0.2);}
-  .modal .eyebrow{margin-bottom:4px;}
-  .modal h2{
-    font-family:'Bebas Neue', sans-serif;
-    margin:0 0 2px;font-size:34px;font-weight:400;letter-spacing:0.04em;
-    color:var(--amber);
-    text-shadow: 0 0 15px var(--amber-glow);
-  }
-  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 16px;}
-  .modal .message{
-    font-size:13.5px;line-height:1.7;
-    color:var(--ink);
-    margin:0 0 20px;
-    white-space:pre-wrap;
-    border-top:1px dashed var(--card-line);
-    border-bottom:1px dashed var(--card-line);
-    padding:16px 0;
-  }
-  
-  /* GIRADISCHI CON SCOCCA LEGNO */
-  .turntable {
-    position: relative;
-    width: 250px;
-    height: 165px;
-    margin: 10px auto 22px;
-    background: 
-      repeating-linear-gradient(90deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 2px, transparent 2px, transparent 4px),
-      linear-gradient(135deg, #42261c 0%, #2a160f 50%, #1a0c07 100%);
-    border-radius: 16px;
-    border: 3px solid #120704;
-    box-shadow: 
-      inset 0 0 15px rgba(0,0,0,0.9), 
-      0 12px 30px rgba(0,0,0,0.8),
-      inset 0 1px 0 rgba(255,255,255,0.15);
-    display: flex;
-    align-items: center;
-    padding-left: 18px;
-    overflow: hidden;
-  }
-
-  .turntable::before {
-    content: "";
-    position: absolute;
-    left: 12px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #555 0%, #222 70%, #111 100%);
-    box-shadow: 0 0 12px rgba(0,0,0,0.8);
-    border: 1px solid #333;
-  }
-
-  .vinyl-wrapper {
-    position: relative;
-    width: 130px;
-    height: 130px;
-    z-index: 2;
-  }
-
-  /* VINILE ANIMATO CON SOLCHI E LUCE */
-  .vinyl {
-    width: 130px;
-    height: 130px;
-    background: 
-      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.06) 36%, transparent 38%, rgba(255,255,255,0.06) 50%, transparent 52%),
-      linear-gradient(135deg, transparent 35%, rgba(255,255,255,0.18) 50%, transparent 65%),
-      radial-gradient(circle, #252525 0%, #111 70%, #050505 100%);
-    border-radius: 50%;
-    border: 2px solid #1a1a1a;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.8);
-    animation: spin 2.2s linear infinite;
-    animation-play-state: paused;
-  }
-
-  .vinyl::before {
-    content: "";
-    width: 44px;
-    height: 44px;
-    background: radial-gradient(circle, #FFC064, var(--amber));
-    border-radius: 50%;
-    border: 3px solid #111;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.6);
-  }
-
-  .vinyl::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #181b36;
-    border-radius: 50%;
-  }
-
-  .vinyl.playing { animation-play-state: running; }
-
-  /* BRACCETTO METALLICO VINTAGE */
-  .tonearm {
-    position: absolute;
-    top: 8px;
-    right: 28px;
-    width: 50px;
-    height: 115px;
-    pointer-events: none;
-    transform-origin: 25px 12px;
-    transform: rotate(-35deg);
-    transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 10;
-  }
-
-  .tonearm-base {
-    position: absolute;
-    top: 2px;
-    left: 15px;
-    width: 22px;
-    height: 22px;
-    background: linear-gradient(135deg, #a8abbf, #3B3E5C);
-    border-radius: 50%;
-    border: 2px solid #111;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
-  }
-
-  .tonearm-stick {
-    position: absolute;
-    top: 12px;
-    left: 24px;
-    width: 4px;
-    height: 88px;
-    background: linear-gradient(90deg, #ccc, #fff, #777);
-    border-radius: 2px;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-  }
-
-  .tonearm-cartridge {
-    position: absolute;
-    bottom: 12px;
-    left: 16px;
-    width: 12px;
-    height: 20px;
-    background: linear-gradient(135deg, #FF9436, #D97A3E);
-    border-radius: 2px;
-    transform: rotate(25deg);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
-  }
-
-  .tonearm.playing { transform: rotate(24deg); }
-
-  @keyframes spin { 100% { transform: rotate(360deg); } }
-
-  audio {
-    width: 100%;
-    height: 40px;
-    border-radius: 999px;
-    outline: none;
-    filter: invert(0.9) hue-rotate(170deg);
-  }
-
-  .empty-state{color:var(--ink-dim);font-size:13px;line-height:1.7;}
-
-  /* EDIT FORM & SETTINGS */
-  .field{margin-bottom:14px;}
-  .field label{
-    display:block;
-    font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--ink-dim);margin-bottom:6px;
-  }
-  .field input, .field textarea{
-    width:100%;
-    background:var(--night-2);
-    border:1px solid var(--card-line);
-    border-radius:8px;
-    color:var(--ink);
-    padding:10px 12px;
-    font-family:'Special Elite', monospace;
-    font-size:13px;
-    transition: border-color 0.2s ease;
-  }
-  .field textarea{resize:vertical;min-height:65px;}
-  .field input:focus, .field textarea:focus{outline:none; border-color:var(--amber); box-shadow:0 0 8px var(--amber-glow);}
-  .row-actions{display:flex;gap:10px;margin-top:18px;}
-  .btn{
-    flex:1;
-    padding:12px;border-radius:999px;border:2px solid var(--card-line);
-    background:none;color:var(--ink);
-    font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
-    transition:all .2s ease;
-  }
-  .btn.primary{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);font-weight:700; box-shadow:0 4px 15px var(--amber-glow);}
-  .btn.primary:hover{background:#FFB956; transform:translateY(-1px);}
-  .btn.danger{color:#D97A82;border-color:rgba(217,122,130,0.4);}
-  .btn.danger:hover{background:rgba(217,122,130,0.12);}
-
-  .settings-panel{
-    background:var(--night-2);
-    border:1px dashed var(--card-line);
-    border-radius:12px;
-    padding:18px;
-    margin-bottom:24px;
-  }
-  .settings-panel .settings-title{
-    font-size:10px;letter-spacing:0.12em;
-    text-transform:uppercase;color:var(--amber);margin-bottom:12px;
-  }
-  .settings-row{display:flex;gap:10px;}
-  .settings-row .field{flex:1;}
-</style>
-</head>
-<body>
-
-<!-- SCHERMATA INTRODUTTIVA -->
-<div class="welcome-screen" id="welcomeScreen">
-  <h1 class="welcome-title">Bentornata Anna</h1>
-  <p class="welcome-sub">C'è una nuova canzone per te stasera...</p>
-  <button class="enter-btn" id="enterBtn">Sfoglia i Vinili</button>
-</div>
-
-<div class="wrap">
-
-  <header>
-    <div class="eyebrow">una canzone al giorno</div>
-    <h1 id="title">JUKEBOX</h1>
-    <p class="subtitle" id="subtitle">fino all'ultimo giorno</p>
-    <button class="edit-toggle" id="editToggle" title="Modifica">✎</button>
-  </header>
-
-  <div class="tuner">
-    <div class="tuner-line">
-      <div class="tuner-ticks" id="ticks"></div>
-    </div>
-    <div class="tuner-label" id="tunerLabel">caricamento…</div>
-  </div>
-
-  <div id="settingsPanel" class="settings-panel" style="display:none;">
-    <div class="settings-title">impostazioni calendario</div>
-    <div class="field">
-      <label>titolo</label>
-      <input id="cfgTitle" type="text">
-    </div>
-    <div class="field">
-      <label>sottotitolo</label>
-      <input id="cfgSubtitle" type="text">
-    </div>
-    <div class="settings-row">
-      <div class="field">
-        <label>notte 1 =</label>
-        <input id="cfgStart" type="date">
-      </div>
-      <div class="field">
-        <label>numero di notti</label>
-        <input id="cfgDays" type="number" min="1" max="31">
-      </div>
-    </div>
-    <button class="btn primary" id="saveSettings" style="width:100%;">salva impostazioni</button>
-  </div>
-
-  <!-- RASTRELLIERA PORTAVINILI VINTAGE -->
-  <div class="rack-container">
-    <div id="grid" class="rack-grid"></div>
-  </div>
-
-</div>
-
-<!-- view modal -->
-<div class="overlay" id="viewOverlay">
-  <div class="modal">
-    <button class="close" id="closeView">✕</button>
-    <div class="eyebrow" id="viewDayLabel">NOTTE 1</div>
-    <div id="viewFilled">
-      
-      <div class="turntable">
-        <div class="vinyl-wrapper">
-          <div class="vinyl" id="vinylRecord"></div>
-        </div>
-        <div class="tonearm" id="tonearm">
-          <div class="tonearm-base"></div>
-          <div class="tonearm-stick"></div>
-          <div class="tonearm-cartridge"></div>
-        </div>
-      </div>
-
-      <h2 id="viewSong"></h2>
-      <p class="artist" id="viewArtist"></p>
-      <p class="message" id="viewMessage"></p>
-      <audio id="audioPlayer" controls></audio>
-    </div>
-    <div id="viewEmpty" class="empty-state" style="display:none;">
-      questa notte non ha ancora una canzone. torna più tardi.
-    </div>
-  </div>
-</div>
-
-<!-- edit modal -->
-<div class="overlay" id="editOverlay">
-  <div class="modal">
-    <button class="close" id="closeEdit">✕</button>
-    <div class="eyebrow" id="editDayLabel">NOTTE 1</div>
-    <div class="field">
-      <label>titolo canzone</label>
-      <input id="fSong" type="text" placeholder="es. Nights">
-    </div>
-    <div class="field">
-      <label>artista</label>
-      <input id="fArtist" type="text" placeholder="es. Frank Ocean">
-    </div>
-    <div class="field">
-      <label>link audio / file mp3</label>
-      <input id="fLink" type="text" placeholder="es. audio/canzone1.mp    padding:36px 16px 64px;
-    position:relative;
-  }
-  body::before{
-    content:"";
-    position:fixed;inset:0;
-    pointer-events:none;
-    background-image:radial-gradient(circle at 1px 1px, rgba(243,237,223,0.04) 1px, transparent 0);
-    background-size:6px 6px;
-  }
-
-  /* ---------- WELCOME SCREEN ---------- */
-  .welcome-screen {
-    position: fixed;
-    inset: 0;
-    background: radial-gradient(circle at center, var(--night-2), var(--night-1));
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    text-align: center;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
-  }
-  .welcome-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
-  }
-  .welcome-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 64px;
-    color: var(--amber);
-    margin: 0 0 10px;
-    letter-spacing: 0.08em;
-    text-shadow: 0 0 25px var(--amber-glow);
-    animation: floatTitle 4s ease-in-out infinite alternate;
-  }
-  @keyframes floatTitle {
-    0% { transform: translateY(0px); }
-    100% { transform: translateY(-8px); }
-  }
-  .welcome-sub {
-    font-size: 16px;
-    color: var(--ink-dim);
-    font-style: italic;
-    margin-bottom: 35px;
-  }
-  .enter-btn {
-    padding: 16px 40px;
-    border-radius: 999px;
-    border: 2px solid var(--amber);
-    background: linear-gradient(135deg, #FFC064, var(--amber));
-    color: var(--amber-ink);
-    font-family: 'Special Elite', monospace;
-    font-size: 14px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 6px 25px var(--amber-glow);
-    animation: pulseBtn 2.5s ease-in-out infinite;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  @keyframes pulseBtn {
-    0%, 100% { transform: scale(1); box-shadow: 0 6px 25px var(--amber-glow); }
-    50% { transform: scale(1.04); box-shadow: 0 10px 35px rgba(255, 176, 66, 0.7); }
-  }
-  .enter-btn:hover {
-    transform: translateY(-3px) scale(1.06) !important;
-  }
-
-  .wrap{width:100%;max-width:560px;position:relative;}
-
-  /* ---------- HEADER ---------- */
-  header{text-align:center;margin-bottom:30px;position:relative;}
-  .eyebrow{
-    font-size:11px;
-    letter-spacing:0.4em;
-    text-transform:uppercase;
-    color:var(--amber);
-    margin-bottom:8px;
-    text-shadow: 0 0 10px var(--amber-glow);
-  }
-  h1{
-    font-family:'Bebas Neue', 'Arial Narrow', sans-serif;
-    font-size:52px;
-    font-weight:400;
-    letter-spacing:0.08em;
-    margin:0 0 4px;
-    line-height:1;
-    color: var(--ink);
-    text-shadow: 0 4px 20px rgba(0,0,0,0.6);
-  }
-  .subtitle{
-    color:var(--ink-dim);
-    font-size:14px;
-    font-style:italic;
-    margin:0;
-  }
-  .edit-toggle{
-    position:absolute;
-    top:0; right:0;
-    background:rgba(255,255,255,0.03);
-    border:1px solid var(--card-line);
-    color:var(--ink-dim);
-    width:36px;height:36px;
-    border-radius:50%;
-    cursor:pointer;
-    font-size:14px;
-    display:flex;
-    align-items:center;justify-content:center;
-    opacity:0.7;
-    transition:all .2s ease;
-  }
-  .edit-toggle:hover{opacity:1;border-color:var(--amber); color:var(--amber);}
-  .edit-toggle.active{border-color:var(--amber);color:var(--amber);opacity:1;background:var(--amber-soft); box-shadow:0 0 12px var(--amber-glow);}
-
-  /* ---------- TUNER ---------- */
-  .tuner{margin:24px 0 32px;}
-  .tuner-line{
-    background:var(--night-1);
-    border:1px solid var(--card-line);
-    border-radius:8px;
-    padding:10px 12px;
-    box-shadow:inset 0 3px 8px rgba(0,0,0,0.6);
-  }
-  .tuner-ticks{
-    display:flex;
-    justify-content:space-between;
-    gap:4px;
-  }
-  .tick{
-    flex:1;
-    height:14px;
-    border-radius:3px;
-    background:rgba(143, 138, 169, 0.12);
-    transition: background 0.3s ease;
-  }
-  .tick.past{background:rgba(143, 138, 169, 0.4);}
-  .tick.today{
-    background:var(--amber);
-    box-shadow:0 0 12px var(--amber-glow);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%,100%{opacity:1;}
-    50%{opacity:0.5;}
-  }
-  .tuner-label{
-    text-align:center;
-    font-size:11px;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--ink-dim);
-    margin-top:12px;
-  }
-  .tuner-label b{color:var(--amber);font-weight:normal;}
-
-  /* ---------- GRID PANNELLO ---------- */
-  .grid-panel{
-    background: linear-gradient(145deg, var(--night-3), #141730);
-    border:1px solid var(--card-line);
-    border-radius:16px;
-    padding:20px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
-  }
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(5, 1fr);
-    gap:14px;
-  }
-  @media (max-width:420px){
-    .grid{grid-template-columns:repeat(4, 1fr);}
-  }
-
-  /* ---------- NUOVI TASSELLI A FORMA DI MINI VINILE ---------- */
-  .track {
-    aspect-ratio: 1;
-    border-radius: var(--radius);
-    position: relative;
-    cursor: pointer;
-    background: #121426;
-    border: 1px solid var(--card-line);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-
-  /* Il mini vinile all'interno della custodia */
-  .track::before {
-    content: "";
-    position: absolute;
-    right: -18%;
-    top: 10%;
-    width: 75%;
-    height: 80%;
-    border-radius: 50%;
-    background: 
-      radial-gradient(circle, #333 0%, #1a1a1a 40%, #000 100%),
-      repeating-radial-gradient(circle, rgba(255,255,255,0.03) 0px, transparent 2px, rgba(255,255,255,0.03) 4px);
-    border: 1px solid #333;
-    box-shadow: -2px 0 6px rgba(0,0,0,0.6);
-    transition: transform 0.3s ease;
-    z-index: 1;
-  }
-
-  .track:hover {
-    transform: translateY(-4px) scale(1.02);
-    border-color: var(--amber);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-  }
-
-  .track:hover::before {
-    transform: translateX(6px) rotate(15deg);
-  }
-
-  /* Testo del tassello */
-  .track-content {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 8px 10px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
-  }
-
-  .track .num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 26px;
-    line-height: 1;
-    color: var(--ink-dim);
-  }
-
-  .track .cap {
-    font-size: 8px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    opacity: 0.6;
-    margin-top: 2px;
-  }
-
-  /* STATO 1: BLOCCATO (NOTTI FUTURE) */
-  .track.locked {
-    cursor: default;
-    opacity: 0.3;
-    background: #0b0c16;
-    border-color: rgba(255,255,255,0.05);
-  }
-  .track.locked::before { display: none; }
-  .track.locked:hover { transform: none; box-shadow: none; border-color: rgba(255,255,255,0.05); }
-
-  /* STATO 2: GIÀ ASCOLTATE (PASSATE) */
-  .track.past-filled {
-    border-color: var(--card-line);
-    background: linear-gradient(145deg, #1c203f, #111326);
-  }
-  .track.past-filled .num { color: #d0cce3; }
-  .track.past-filled .cap { color: var(--amber); opacity: 0.9; }
-  .track.past-filled::after {
-    content: "✓";
-    position: absolute;
-    bottom: 6px;
-    right: 8px;
-    font-size: 10px;
-    color: var(--amber);
-    z-index: 2;
-  }
-
-  /* STATO 3: OGGI DA ASCOLTARE (DISPONIBILE) */
-  .track.today-active {
-    border: 2px solid var(--amber);
-    background: linear-gradient(135deg, #2c2118, #181930);
-    box-shadow: 0 0 15px var(--amber-glow);
-    animation: glowTrack 2s infinite alternate;
-  }
-  @keyframes glowTrack {
-    0% { box-shadow: 0 0 8px var(--amber-glow); }
-    100% { box-shadow: 0 0 20px rgba(255, 176, 66, 0.7); }
-  }
-  .track.today-active .num { color: var(--amber); text-shadow: 0 0 8px var(--amber-glow); }
-  .track.today-active .cap { color: var(--ink); opacity: 0.9; font-weight: bold; }
-  
-  /* Centro dell'etichetta del mini vinile attivo */
-  .track.today-active::before {
-    background: 
-      radial-gradient(circle, var(--amber) 0%, var(--amber) 25%, #1a1a1a 26%, #000 100%);
-  }
-
-  /* ---------- MODAL & ANIMAZIONI ---------- */
-  .overlay{
-    position:fixed;inset:0;
-    background:rgba(4,5,10,0.85);
     backdrop-filter:blur(8px);
     display:none;
     align-items:center;justify-content:center;
@@ -1014,262 +303,124 @@
     opacity: 0;
     transition: opacity 0.3s ease;
   }
-  .overlay.show{
-    display:flex;
-    opacity: 1;
-  }
+  .overlay.show{ display:flex; opacity: 1; }
 
   .modal{
-    background: linear-gradient(160deg, var(--night-3), #121429);
+    background: linear-gradient(160deg, var(--night-3), #101222);
     border:1px solid rgba(255,255,255,0.12);
-    box-shadow:0 25px 50px rgba(0,0,0,0.8), 0 0 35px rgba(255, 176, 66, 0.1);
+    box-shadow:0 25px 50px rgba(0,0,0,0.9);
     border-radius:20px;
-    padding:28px 24px 24px;
-    width:100%;max-width:400px;
+    padding:24px 20px;
+    width:100%;max-width:380px;
     position:relative;
-    transform: translateY(20px) scale(0.92);
-    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  }
-  .overlay.show .modal {
-    transform: translateY(0) scale(1);
   }
   
   .modal .close{
-    position:absolute;top:16px;right:16px;
+    position:absolute;top:14px;right:14px;
     background:rgba(255,255,255,0.06);
     border:none;color:var(--ink-dim);
     width: 30px; height: 30px; border-radius: 50%;
-    font-size:14px;cursor:pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition:all .2s;
+    cursor:pointer;
   }
-  .modal .close:hover{color:var(--ink); background:rgba(255,255,255,0.2);}
-  .modal .eyebrow{margin-bottom:4px;}
   .modal h2{
     font-family:'Bebas Neue', sans-serif;
-    margin:0 0 2px;font-size:32px;font-weight:400;letter-spacing:0.04em;
-    color:var(--amber);
-    text-shadow: 0 0 15px var(--amber-glow);
+    margin:0 0 2px;font-size:32px;color:var(--amber);
   }
-  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 16px;}
+  .modal .artist{color:var(--ink-dim);font-style:italic;font-size:13px;margin:0 0 12px;}
   .modal .message{
-    font-size:14px;line-height:1.7;
+    font-size:13px;line-height:1.6;
     color:var(--ink);
-    margin:0 0 20px;
-    white-space:pre-wrap;
+    margin:0 0 16px;
     border-top:1px dashed var(--card-line);
     border-bottom:1px dashed var(--card-line);
-    padding:16px 0;
+    padding:12px 0;
   }
   
-  /* ---------- GIRADISCHI SCOCCA IN LEGNO ---------- */
+  /* PLAYER GIRADISCHI */
   .turntable {
     position: relative;
-    width: 245px;
-    height: 160px;
-    margin: 10px auto 22px;
-    background: 
-      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 4px),
-      linear-gradient(135deg, #3b2219 0%, #26140e 50%, #1f100a 100%);
-    border-radius: 14px;
-    border: 3px solid #140a06;
-    box-shadow: 
-      inset 0 0 12px rgba(0,0,0,0.9), 
-      0 12px 25px rgba(0,0,0,0.7),
-      inset 0 1px 0 rgba(255,255,255,0.15);
+    width: 230px;
+    height: 150px;
+    margin: 5px auto 18px;
+    background: linear-gradient(135deg, #381E15, #1A0C07);
+    border-radius: 12px;
+    border: 3px solid #100604;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
-    padding-left: 18px;
+    padding-left: 14px;
     overflow: hidden;
   }
 
-  .turntable::before {
-    content: "";
-    position: absolute;
-    left: 12px;
-    width: 138px;
-    height: 138px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #666 0%, #222 70%, #111 100%);
-    box-shadow: 0 0 10px rgba(0,0,0,0.8);
-    border: 1px solid #444;
-  }
-
-  .vinyl-wrapper {
-    position: relative;
-    width: 126px;
-    height: 126px;
-    z-index: 2;
-  }
+  .vinyl-wrapper { position: relative; width: 120px; height: 120px; z-index: 2; }
 
   .vinyl {
-    width: 126px;
-    height: 126px;
+    width: 120px; height: 120px;
     background: 
-      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.05) 36%, transparent 38%, rgba(255,255,255,0.05) 50%, transparent 52%),
-      linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%),
-      radial-gradient(circle, #252525 0%, #111 70%, #050505 100%);
+      radial-gradient(circle, transparent 35%, rgba(255,255,255,0.08) 36%, transparent 38%),
+      radial-gradient(circle, #222 0%, #111 70%, #000 100%);
     border-radius: 50%;
-    border: 2px solid #1a1a1a;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.8);
+    border: 1px solid #333;
+    display: flex; align-items: center; justify-content: center;
     animation: spin 2.2s linear infinite;
     animation-play-state: paused;
   }
-
   .vinyl::before {
-    content: "";
-    width: 42px;
-    height: 42px;
-    background: radial-gradient(circle, #FFC064, var(--amber));
-    border-radius: 50%;
-    border: 3px solid #111;
-    box-shadow: inset 0 0 4px rgba(0,0,0,0.6);
+    content: ""; width: 40px; height: 40px;
+    background: linear-gradient(135deg, #FFC064, var(--amber));
+    border-radius: 50%; border: 2px solid #111;
   }
+  .vinyl.playing { animation-play-state: running; }
 
-  .vinyl::after {
-    content: "";
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: #181b36;
-    border-radius: 50%;
-    box-shadow: 0 0 2px rgba(255,255,255,0.5);
-  }
-
-  .vinyl.playing {
-    animation-play-state: running;
-  }
-
-  /* BRACCIO METALLICO */
   .tonearm {
-    position: absolute;
-    top: 8px;
-    right: 28px;
-    width: 50px;
-    height: 110px;
-    pointer-events: none;
-    transform-origin: 25px 12px;
-    transform: rotate(-32deg);
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: absolute; top: 6px; right: 24px;
+    width: 45px; height: 105px;
+    transform-origin: 22px 10px;
+    transform: rotate(-35deg);
+    transition: transform 0.8s ease;
     z-index: 10;
+    pointer-events: none;
   }
+  .tonearm-base { position: absolute; top: 0; left: 12px; width: 20px; height: 20px; background: #666; border-radius: 50%; }
+  .tonearm-stick { position: absolute; top: 10px; left: 20px; width: 3px; height: 80px; background: #ddd; }
+  .tonearm-cartridge { position: absolute; bottom: 10px; left: 14px; width: 10px; height: 18px; background: #FF9436; transform: rotate(20deg); }
+  .tonearm.playing { transform: rotate(22deg); }
 
-  .tonearm-base {
-    position: absolute;
-    top: 2px;
-    left: 15px;
-    width: 22px;
-    height: 22px;
-    background: linear-gradient(135deg, #999cb3, #3B3E5C);
-    border-radius: 50%;
-    border: 2px solid #111;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
-  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
 
-  .tonearm-stick {
-    position: absolute;
-    top: 12px;
-    left: 24px;
-    width: 4px;
-    height: 85px;
-    background: linear-gradient(90deg, #ddd, #fff, #888);
-    border-radius: 2px;
-    box-shadow: 2px 2px 4px rgba(0,0,0,0.4);
-  }
+  audio { width: 100%; filter: invert(0.9) hue-rotate(170deg); }
 
-  .tonearm-cartridge {
-    position: absolute;
-    bottom: 12px;
-    left: 16px;
-    width: 12px;
-    height: 20px;
-    background: linear-gradient(135deg, #FF9436, #D97A3E);
-    border-radius: 2px;
-    transform: rotate(45deg);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.6);
-  }
-
-  .tonearm.playing {
-    transform: rotate(35deg);
-  }
-
-  @keyframes spin {
-    100% { transform: rotate(360deg); }
-  }
-
-  audio {
-    width: 100%;
-    height: 40px;
-    border-radius: 999px;
-    outline: none;
-    filter: invert(0.9) hue-rotate(170deg);
-  }
-
-  .empty-state{color:var(--ink-dim);font-size:13px;line-height:1.7;}
-
-  /* ---------- EDIT FORM ---------- */
-  .field{margin-bottom:14px;}
-  .field label{
-    display:block;
-    font-size:10px;letter-spacing:0.12em;text-transform:uppercase;
-    color:var(--ink-dim);margin-bottom:6px;
-  }
+  /* FORM DI MODIFICA E SETTINGS */
+  .field{margin-bottom:12px;}
+  .field label{display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:4px;}
   .field input, .field textarea{
-    width:100%;
-    background:var(--night-2);
-    border:1px solid var(--card-line);
-    border-radius:8px;
-    color:var(--ink);
-    padding:10px 12px;
-    font-family:'Special Elite', monospace;
-    font-size:13px;
-    transition: border-color 0.2s ease;
+    width:100%; background:var(--night-2); border:1px solid var(--card-line);
+    border-radius:6px; color:var(--ink); padding:8px 10px; font-family:'Special Elite', monospace; font-size:12px;
   }
-  .field textarea{resize:vertical;min-height:65px;}
-  .field input:focus, .field textarea:focus{outline:none; border-color:var(--amber); box-shadow:0 0 8px var(--amber-glow);}
-  .row-actions{display:flex;gap:10px;margin-top:18px;}
+  .field textarea{resize:vertical;min-height:55px;}
+  .row-actions{display:flex;gap:10px;margin-top:14px;}
   .btn{
-    flex:1;
-    padding:12px;border-radius:999px;border:2px solid var(--card-line);
-    background:none;color:var(--ink);
-    font-size:11px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;
-    transition:all .2s ease;
+    flex:1; padding:10px; border-radius:999px; border:1px solid var(--card-line);
+    background:none; color:var(--ink); font-size:11px; cursor:pointer; text-transform:uppercase;
   }
-  .btn.primary{background:var(--amber);color:var(--amber-ink);border-color:var(--amber);font-weight:700; box-shadow:0 4px 15px var(--amber-glow);}
-  .btn.primary:hover{background:#FFB956; transform:translateY(-1px);}
-  .btn.danger{color:#D97A82;border-color:rgba(217,122,130,0.4);}
-  .btn.danger:hover{background:rgba(217,122,130,0.12);}
+  .btn.primary{background:var(--amber); color:var(--amber-ink); border-color:var(--amber); font-weight:bold;}
+  .btn.danger{color:#D97A82; border-color:rgba(217,122,130,0.4);}
 
   .settings-panel{
-    background:var(--night-2);
-    border:1px dashed var(--card-line);
-    border-radius:12px;
-    padding:18px;
-    margin-bottom:24px;
+    background:var(--night-2); border:1px dashed var(--card-line); border-radius:10px; padding:14px; margin-bottom:20px;
   }
-  .settings-panel .settings-title{
-    font-size:10px;letter-spacing:0.12em;
-    text-transform:uppercase;color:var(--amber);margin-bottom:12px;
-  }
+  .settings-title{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
   .settings-row{display:flex;gap:10px;}
   .settings-row .field{flex:1;}
-
-  .status{
-    text-align:center;color:var(--ink-dim);font-size:12px;padding:40px 0;
-  }
 </style>
 </head>
 <body>
 
-<!-- SCHERMATA INTRODUTTIVA -->
+<!-- SCHERMATA BENVENUTO -->
 <div class="welcome-screen" id="welcomeScreen">
   <h1 class="welcome-title">Bentornata Anna</h1>
-  <p class="welcome-sub">Buon ascolto...</p>
-  <button class="enter-btn" id="enterBtn">Apri il Jukebox</button>
+  <p class="welcome-sub">C'è un vinile che ti aspetta...</p>
+  <button class="enter-btn" id="enterBtn">Sfoglia il Jukebox</button>
 </div>
 
 <div class="wrap">
@@ -1277,7 +428,7 @@
   <header>
     <div class="eyebrow">una canzone al giorno</div>
     <h1 id="title">JUKEBOX</h1>
-    <p class="subtitle" id="subtitle">fino all'ultimo giorno</p>
+    <p class="subtitle" id="subtitle">finché non ci rivedremo</p>
     <button class="edit-toggle" id="editToggle" title="Modifica">✎</button>
   </header>
 
@@ -1311,15 +462,14 @@
     <button class="btn primary" id="saveSettings" style="width:100%;">salva impostazioni</button>
   </div>
 
-  <div class="grid-panel">
-    <div id="grid" class="grid"></div>
+  <!-- RASTRELLIERA PORTAVINILI -->
+  <div class="rack-container">
+    <div id="grid" class="rack-grid"></div>
   </div>
-
-  <div class="status" id="status" style="display:none;"></div>
 
 </div>
 
-<!-- view modal -->
+<!-- VIEW MODAL (PLAYER) -->
 <div class="overlay" id="viewOverlay">
   <div class="modal">
     <button class="close" id="closeView">✕</button>
@@ -1342,32 +492,32 @@
       <p class="message" id="viewMessage"></p>
       <audio id="audioPlayer" controls></audio>
     </div>
-    <div id="viewEmpty" class="empty-state" style="display:none;">
+    <div id="viewEmpty" style="display:none;color:var(--ink-dim);font-size:13px;">
       questa notte non ha ancora una canzone. torna più tardi.
     </div>
   </div>
 </div>
 
-<!-- edit modal -->
+<!-- EDIT MODAL -->
 <div class="overlay" id="editOverlay">
   <div class="modal">
     <button class="close" id="closeEdit">✕</button>
     <div class="eyebrow" id="editDayLabel">NOTTE 1</div>
     <div class="field">
       <label>titolo canzone</label>
-      <input id="fSong" type="text" placeholder="es. Nights">
+      <input id="fSong" type="text" placeholder="es. Le biciclette">
     </div>
     <div class="field">
       <label>artista</label>
-      <input id="fArtist" type="text" placeholder="es. Frank Ocean">
+      <input id="fArtist" type="text" placeholder="es. Fulminacci">
     </div>
     <div class="field">
       <label>link audio / file mp3</label>
-      <input id="fLink" type="text" placeholder="es. audio/canzone1.mp3">
+      <input id="fLink" type="text" placeholder="es. canzone1.mp3">
     </div>
     <div class="field">
       <label>messaggio</label>
-      <textarea id="fMessage" placeholder="perché questa canzone, oggi"></textarea>
+      <textarea id="fMessage" placeholder="perché questa canzone"></textarea>
     </div>
     <div class="row-actions">
       <button class="btn danger" id="clearEntry">svuota</button>
@@ -1376,15 +526,15 @@
   </div>
 </div>
 
-<!-- code gate -->
+<!-- CODE GATE -->
 <div class="overlay" id="codeOverlay">
-  <div class="modal" style="max-width:290px;text-align:center;">
+  <div class="modal" style="max-width:280px;text-align:center;">
     <button class="close" id="closeCode">✕</button>
-    <div class="eyebrow">accesso proiezionista</div>
-    <div class="field" style="margin-top:14px;">
+    <div class="eyebrow">accesso modifica</div>
+    <div class="field" style="margin-top:12px;">
       <input id="codeInput" type="password" placeholder="codice" autocomplete="off">
     </div>
-    <div id="codeError" style="display:none;color:#D97A82;font-size:12px;margin-bottom:10px;">codice sbagliato</div>
+    <div id="codeError" style="display:none;color:#D97A82;font-size:12px;margin-bottom:8px;">codice errato</div>
     <button class="btn primary" id="codeConfirm" style="width:100%;">sblocca</button>
   </div>
 </div>
@@ -1393,14 +543,33 @@
 let data = null;
 let editMode = false;
 let activeDay = null;
-
-const $ = (id) => document.getElementById(id);
 let isEditor = false;
 const EDIT_CODE = 'primopiano';
+
+const $ = (id) => document.getElementById(id);
 
 $('enterBtn').addEventListener('click', () => {
   $('welcomeScreen').classList.add('hidden');
 });
+
+function defaultData(){
+  // Data odierna impostata come inizio così il Notte 1 è subito attivo!
+  const todayStr = new Date().toISOString().slice(0,10);
+  return {
+    title: 'JUKEBOX',
+    subtitle: 'finché non ci rivedremo',
+    startDate: todayStr, 
+    numDays: 10,              
+    entries: {
+      1: {
+        songTitle: "Le biciclette",
+        artist: "Fulminacci",
+        link: "Fulminacci - Le biciclette [ARmBTwope68].mp3", 
+        message: "Colpo basso"
+      }
+    }
+  };
+}
 
 function todayISO(){
   const d = new Date();
@@ -1413,101 +582,16 @@ function addDays(iso, n){
   return d.toISOString().slice(0,10);
 }
 
-function defaultData(){
-  return {
-    title: 'JUKEBOX',
-    subtitle: 'finché non ci rivedremo',
-    startDate: '2026-07-30', 
-    numDays: 10,              
-    entries: {
-      1: {
-        songTitle: ".01",
-        artist: "Unknown artist",
-        link: "Fulminacci - Le biciclette [ARmBTwope68].mp3", 
-        message: "Colpo basso"
-      },
-      2: {
-        songTitle: "Titolo Canzone 2",
-        artist: "Artista 2",
-        link: "audio/canzone2.mp3",
-        message: "Messaggio per la seconda notte."
-      },
-      3: {
-        songTitle: "Titolo Canzone 3",
-        artist: "Artista 3",
-        link: "audio/canzone3.mp3",
-        message: "Messaggio per la terza notte."
-      },
-      4: {
-        songTitle: "Titolo Canzone 4",
-        artist: "Artista 4",
-        link: "audio/canzone4.mp3",
-        message: "Messaggio per la quarta notte."
-      },
-      5: {
-        songTitle: "Titolo Canzone 5",
-        artist: "Artista 5",
-        link: "audio/canzone5.mp3",
-        message: "Messaggio per la quinta notte."
-      },
-      6: {
-        songTitle: "Titolo Canzone 6",
-        artist: "Artista 6",
-        link: "audio/canzone6.mp3",
-        message: "Messaggio per la sesta notte."
-      },
-      7: {
-        songTitle: "Titolo Canzone 7",
-        artist: "Artista 7",
-        link: "audio/canzone7.mp3",
-        message: "Messaggio per la settima notte."
-      },
-      8: {
-        songTitle: "Titolo Canzone 8",
-        artist: "Artista 8",
-        link: "audio/canzone8.mp3",
-        message: "Messaggio per l'ottava notte."
-      },
-      9: {
-        songTitle: "Titolo Canzone 9",
-        artist: "Artista 9",
-        link: "audio/canzone9.mp3",
-        message: "Messaggio per la nona notte."
-      },
-      10: {
-        songTitle: "Titolo Canzone 10",
-        artist: "Artista 10",
-        link: "audio/canzone10.mp3",
-        message: "Messaggio per la decima notte."
-      }
-    }
-  };
-}
-
-async function load(){
-  data = defaultData();
-  render();
-}
-
-async function save(){
-  // Sincronizzazione via GitHub o LocalStorage
-}
-
-function dayUnlockDate(dayIndex){
-  return addDays(data.startDate, dayIndex - 1);
-}
-
 function dayState(dayIndex){
   const today = todayISO();
-  const unlockDate = dayUnlockDate(dayIndex);
+  const unlockDate = addDays(data.startDate, dayIndex - 1);
   const entry = data.entries[dayIndex];
 
   if (unlockDate > today) {
-    return {locked:true, isToday:false, filled:false, unlockDate};
+    return {locked:true, isToday:false, filled:false};
   }
-
   const isToday = unlockDate === today;
-  return {locked:false, isToday, filled: !!(entry && entry.songTitle), unlockDate};
+  return {locked:false, isToday, filled: !!(entry && entry.songTitle)};
 }
 
 function render(){
@@ -1520,23 +604,13 @@ function render(){
 
   const ticks = $('ticks');
   ticks.innerHTML = '';
-  const today = todayISO();
-  let unlockedCount = 0;
   for(let i=1;i<=data.numDays;i++){
     const s = dayState(i);
-    if(!s.locked) unlockedCount++;
     const t = document.createElement('div');
     t.className = 'tick' + (s.isToday ? ' today' : (!s.locked ? ' past' : ''));
     ticks.appendChild(t);
   }
-  const label = $('tunerLabel');
-  if(unlockedCount === 0){
-    label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
-  } else if(unlockedCount >= data.numDays){
-    label.innerHTML = `tutte le <b>${data.numDays}</b> notti sono sbloccate`;
-  } else {
-    label.innerHTML = `notte <b>${unlockedCount}</b> di ${data.numDays}`;
-  }
+  $('tunerLabel').innerHTML = `notte <b>1</b> di ${data.numDays}`;
 
   const grid = $('grid');
   grid.innerHTML = '';
@@ -1544,50 +618,39 @@ function render(){
     const s = dayState(i);
     const el = document.createElement('div');
     
-    // Classi differenziate per lo stato dei mini-vinili
-    let cls = 'track';
-    if(s.locked) {
-      cls += ' locked';
-    } else if (s.isToday) {
-      cls += ' today-active';
-    } else {
-      cls += ' past-filled';
-    }
+    let cls = 'album-slot';
+    if(s.locked) cls += ' locked';
+    else if (s.isToday) cls += ' today-active';
     
     el.className = cls;
     
-    let subText = 'NOTTE';
-    if (s.isToday) subText = 'OGGI';
-    else if (s.locked) subText = '🔒';
+    let tag = 'NOTTE';
+    if (s.isToday) tag = 'OGGI';
+    else if (s.locked) tag = '🔒';
 
     el.innerHTML = `
-      <div class="track-content">
-        <div class="num">${String(i).padStart(2,'0')}</div>
-        <div class="cap">${subText}</div>
+      <div class="album-disc">
+        <div class="album-disc-label">${String(i).padStart(2,'0')}</div>
+      </div>
+      <div class="album-sleeve">
+        <div class="sleeve-num">${String(i).padStart(2,'0')}</div>
+        <div class="sleeve-tag">${tag}</div>
       </div>
     `;
     
-    el.addEventListener('click', () => onTrackClick(i, s));
+    el.addEventListener('click', () => {
+      activeDay = i;
+      if(isEditor && editMode) openEdit(i);
+      else if(!s.locked) openView(i);
+    });
     grid.appendChild(el);
   }
 }
 
-function onTrackClick(dayIndex, state){
-  activeDay = dayIndex;
-  if(isEditor && editMode){
-    openEdit(dayIndex);
-    return;
-  }
-  if(state.locked) return;
-  openView(dayIndex, state);
-}
-
-function openView(dayIndex, state){
+function openView(dayIndex){
   $('viewDayLabel').textContent = 'NOTTE ' + dayIndex;
   const entry = data.entries[dayIndex];
   const audio = $('audioPlayer');
-  const vinyl = $('vinylRecord');
-  const tonearm = $('tonearm');
 
   if(entry && entry.songTitle){
     $('viewFilled').style.display = 'block';
@@ -1595,21 +658,15 @@ function openView(dayIndex, state){
     $('viewSong').textContent = entry.songTitle;
     $('viewArtist').textContent = entry.artist || '';
     $('viewMessage').textContent = entry.message || '';
-    
     if(entry.link){
       audio.src = entry.link;
       audio.style.display = 'block';
     } else {
-      audio.removeAttribute('src');
       audio.style.display = 'none';
     }
-    vinyl.classList.remove('playing');
-    tonearm.classList.remove('playing');
-    audio.pause();
   } else {
     $('viewFilled').style.display = 'none';
     $('viewEmpty').style.display = 'block';
-    audio.pause();
   }
   $('viewOverlay').classList.add('show');
 }
@@ -1622,22 +679,13 @@ $('audioPlayer').addEventListener('pause', () => {
   $('vinylRecord').classList.remove('playing');
   $('tonearm').classList.remove('playing');
 });
-$('audioPlayer').addEventListener('ended', () => {
-  $('vinylRecord').classList.remove('playing');
-  $('tonearm').classList.remove('playing');
-});
 
 function closeViewModal(){
   $('viewOverlay').classList.remove('show');
   $('audioPlayer').pause();
-  $('vinylRecord').classList.remove('playing');
-  $('tonearm').classList.remove('playing');
 }
 
 $('closeView').addEventListener('click', closeViewModal);
-$('viewOverlay').addEventListener('click', (e) => { 
-  if(e.target === $('viewOverlay')) closeViewModal(); 
-});
 
 function openEdit(dayIndex){
   $('editDayLabel').textContent = 'NOTTE ' + dayIndex;
@@ -1650,24 +698,20 @@ function openEdit(dayIndex){
 }
 
 $('closeEdit').addEventListener('click', () => $('editOverlay').classList.remove('show'));
-$('editOverlay').addEventListener('click', (e) => { if(e.target === $('editOverlay')) $('editOverlay').classList.remove('show'); });
 
-$('saveEntry').addEventListener('click', async () => {
-  const songTitle = $('fSong').value.trim();
+$('saveEntry').addEventListener('click', () => {
   data.entries[activeDay] = {
-    songTitle,
+    songTitle: $('fSong').value.trim(),
     artist: $('fArtist').value.trim(),
     link: $('fLink').value.trim(),
     message: $('fMessage').value.trim()
   };
-  await save();
   render();
   $('editOverlay').classList.remove('show');
 });
 
-$('clearEntry').addEventListener('click', async () => {
+$('clearEntry').addEventListener('click', () => {
   delete data.entries[activeDay];
-  await save();
   render();
   $('editOverlay').classList.remove('show');
 });
@@ -1685,9 +729,8 @@ $('editToggle').addEventListener('click', () => {
 });
 
 $('closeCode').addEventListener('click', () => $('codeOverlay').classList.remove('show'));
-$('codeOverlay').addEventListener('click', (e) => { if(e.target === $('codeOverlay')) $('codeOverlay').classList.remove('show'); });
 
-function tryUnlock(){
+$('codeConfirm').addEventListener('click', () => {
   if($('codeInput').value === EDIT_CODE){
     isEditor = true;
     editMode = true;
@@ -1696,24 +739,19 @@ function tryUnlock(){
     $('settingsPanel').style.display = 'block';
   } else {
     $('codeError').style.display = 'block';
-    $('codeInput').value = '';
   }
-}
-$('codeConfirm').addEventListener('click', tryUnlock);
-$('codeInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') tryUnlock(); });
+});
 
-$('saveSettings').addEventListener('click', async () => {
+$('saveSettings').addEventListener('click', () => {
   data.title = $('cfgTitle').value.trim() || data.title;
   data.subtitle = $('cfgSubtitle').value.trim();
   data.startDate = $('cfgStart').value || data.startDate;
   data.numDays = Math.max(1, Math.min(31, parseInt($('cfgDays').value) || data.numDays));
-  await save();
   render();
 });
 
-load();
+data = defaultData();
+render();
 </script>
 </body>
 </html>
-
-
