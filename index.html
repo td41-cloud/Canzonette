@@ -294,10 +294,10 @@
     padding:14px 0;
   }
   
-  /* ---------- GIRADISCHI E VINILE CON TESTINA ---------- */
+  /* ---------- GIRADISCHI E VINILE CON TESTINA CORRETTA ---------- */
   .turntable {
     position: relative;
-    width: 220px;
+    width: 230px;
     height: 150px;
     margin: 10px auto 20px;
     background: #181b36;
@@ -357,15 +357,16 @@
     animation-play-state: running;
   }
 
+  /* Braccio del giradischi riallineato */
   .tonearm {
     position: absolute;
-    top: 12px;
-    right: 22px;
-    width: 60px;
-    height: 100px;
+    top: 8px;
+    right: 28px;
+    width: 50px;
+    height: 110px;
     pointer-events: none;
-    transform-origin: 48px 12px;
-    transform: rotate(-28deg);
+    transform-origin: 25px 12px;
+    transform: rotate(-32deg); /* Posizione di riposo fuori dal disco */
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
   }
@@ -373,7 +374,7 @@
   .tonearm-base {
     position: absolute;
     top: 2px;
-    right: 2px;
+    left: 15px;
     width: 20px;
     height: 20px;
     background: #555878;
@@ -384,28 +385,29 @@
 
   .tonearm-stick {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    left: 23px;
     width: 4px;
-    height: 70px;
+    height: 85px;
     background: linear-gradient(90deg, #aaa, #fff, #888);
     border-radius: 2px;
   }
 
   .tonearm-cartridge {
     position: absolute;
-    bottom: 18px;
-    right: 5px;
-    width: 10px;
-    height: 16px;
+    bottom: 12px;
+    left: 15px;
+    width: 12px;
+    height: 20px;
     background: #d97a3e;
     border-radius: 2px;
-    transform: rotate(15deg);
+    transform: rotate(25deg);
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
+  /* Posizione esatta sulla traccia del vinile quando in riproduzione */
   .tonearm.playing {
-    transform: rotate(7deg);
+    transform: rotate(11deg);
   }
 
   @keyframes spin {
@@ -607,7 +609,6 @@ const $ = (id) => document.getElementById(id);
 let isEditor = false;
 const EDIT_CODE = 'primopiano';
 
-/* Gestione Schermata di Benvenuto */
 $('enterBtn').addEventListener('click', () => {
   $('welcomeScreen').classList.add('hidden');
 });
@@ -623,9 +624,6 @@ function addDays(iso, n){
   return d.toISOString().slice(0,10);
 }
 
-/* =========================================================================
-   MODIFICA QUI LE TUE CANZONI E LA DATA DI INIZIO
-   ========================================================================= */
 function defaultData(){
   return {
     title: 'JUKEBOX',
@@ -634,10 +632,10 @@ function defaultData(){
     numDays: 10,              
     entries: {
       1: {
-        songTitle: "01",
-        artist: "Unknown",
+        songTitle: ".01",
+        artist: "Autore sconosciuto",
         link: "Fulminacci - Le biciclette [ARmBTwope68].mp3", 
-        message: "Test"
+        message: "Primo colpo basso"
       },
       2: {
         songTitle: "Titolo Canzone 2",
@@ -710,11 +708,25 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
+/* GESTIONE SBLOCCO SITO DALLE ORE 19:00 */
 function dayState(dayIndex){
+  const now = new Date();
   const today = todayISO();
+  const currentHour = now.getHours();
+  
   const unlockDate = dayUnlockDate(dayIndex);
   const entry = data.entries[dayIndex];
-  if (unlockDate > today) return {locked:true, isToday:false, filled:false, unlockDate};
+
+  // Se la data deve ancora arrivare
+  if (unlockDate > today) {
+    return {locked:true, isToday:false, filled:false, unlockDate};
+  }
+  
+  // Se è la data di oggi ma non sono ancora le 19:00
+  if (unlockDate === today && currentHour < 19) {
+    return {locked:true, isToday:true, filled:false, unlockDate};
+  }
+
   const isToday = unlockDate === today;
   return {locked:false, isToday, filled: !!(entry && entry.songTitle), unlockDate};
 }
@@ -740,7 +752,12 @@ function render(){
   }
   const label = $('tunerLabel');
   if(unlockedCount === 0){
-    label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
+    const now = new Date();
+    if(data.startDate === today && now.getHours() < 19){
+      label.innerHTML = `si sblocca stasera alle <b>19:00</b>`;
+    } else {
+      label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
+    }
   } else if(unlockedCount >= data.numDays){
     label.innerHTML = `tutte le <b>${data.numDays}</b> notti sono sbloccate`;
   } else {
