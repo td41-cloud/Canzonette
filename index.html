@@ -728,15 +728,13 @@ $('enterBtn').addEventListener('click', () => {
   $('welcomeScreen').classList.add('hidden');
 });
 
-function todayISO(){
-  const d = new Date();
-  return new Date(d.getFullYear(), d.getMonth(), d.getDate()).toISOString().slice(0,10);
-}
-
 function addDays(iso, n){
   const d = new Date(iso + 'T00:00:00');
   d.setDate(d.getDate() + n);
-  return d.toISOString().slice(0,10);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
 }
 
 function defaultData(){
@@ -823,12 +821,11 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
-// LOGICA AGGIORNATA: Sblocco fisso alle 19:00:00 ORA LOCALE
+// LOGICA CORRETTA: Sblocco fissato alle 19:00:00 ORA LOCALE
 function dayState(dayIndex){
   const now = new Date();
   const unlockDayStr = dayUnlockDate(dayIndex);
   
-  // Scomposizione e costruzione data locale per le 19:00
   const [year, month, day] = unlockDayStr.split('-').map(Number);
   const unlockDateTime = new Date(year, month - 1, day, 19, 0, 0, 0);
 
@@ -838,7 +835,7 @@ function dayState(dayIndex){
                     now.getMonth() === (month - 1) && 
                     now.getDate() === day;
 
-  // Se l'ora attuale precede le 19:00 del giorno di sblocco
+  // Se siamo prima dell'orario delle 19:00 del giorno previsto
   if (now.getTime() < unlockDateTime.getTime()) {
     return {
       locked: true, 
@@ -848,7 +845,7 @@ function dayState(dayIndex){
     };
   }
 
-  // Sbloccata se si sono superate le 19:00
+  // Se siamo dopo le 19:00 della data prevista
   return {
     locked: false, 
     isToday: isSameDay, 
@@ -867,18 +864,17 @@ function render(){
 
   const ticks = $('ticks');
   ticks.innerHTML = '';
-  const today = todayISO();
   let unlockedCount = 0;
   for(let i=1;i<=data.numDays;i++){
     const s = dayState(i);
     if(!s.locked) unlockedCount++;
     const t = document.createElement('div');
-    t.className = 'tick' + (s.isToday ? ' today' : (!s.locked ? ' past' : ''));
+    t.className = 'tick' + (s.isToday && !s.locked ? ' today' : (!s.locked ? ' past' : ''));
     ticks.appendChild(t);
   }
   const label = $('tunerLabel');
   if(unlockedCount === 0){
-    label.innerHTML = `si parte tra <b>${Math.max(0, Math.ceil((new Date(data.startDate)-new Date(today))/86400000))}</b> giorni`;
+    label.innerHTML = `si parte prossimamente`;
   } else if(unlockedCount >= data.numDays){
     label.innerHTML = `tutte le <b>${data.numDays}</b> notti sono sbloccate`;
   } else {
