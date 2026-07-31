@@ -210,7 +210,7 @@
     .grid{grid-template-columns:repeat(4, 1fr);}
   }
 
-  /* ---------- NUOVI TASSELLI A FORMA DI MINI VINILE ---------- */
+  /* ---------- TASSELLI MINI VINILE ---------- */
   .track {
     aspect-ratio: 1;
     border-radius: var(--radius);
@@ -227,7 +227,6 @@
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  /* Il mini vinile all'interno della custodia */
   .track::before {
     content: "";
     position: absolute;
@@ -255,7 +254,6 @@
     transform: translateX(6px) rotate(15deg);
   }
 
-  /* Testo del tassello */
   .track-content {
     position: relative;
     z-index: 2;
@@ -285,7 +283,7 @@
     margin-top: 2px;
   }
 
-  /* STATO 1: BLOCCATO (NOTTI FUTURE) */
+  /* STATO 1: BLOCCATO */
   .track.locked {
     cursor: default;
     opacity: 0.3;
@@ -295,7 +293,7 @@
   .track.locked::before { display: none; }
   .track.locked:hover { transform: none; box-shadow: none; border-color: rgba(255,255,255,0.05); }
 
-  /* STATO 2: GIÀ ASCOLTATE (PASSATE) */
+  /* STATO 2: PASSATE */
   .track.past-filled {
     border-color: var(--card-line);
     background: linear-gradient(145deg, #1c203f, #111326);
@@ -312,7 +310,7 @@
     z-index: 2;
   }
 
-  /* STATO 3: OGGI DA ASCOLTARE (DISPONIBILE) */
+  /* STATO 3: OGGI DISPONIBILE */
   .track.today-active {
     border: 2px solid var(--amber);
     background: linear-gradient(135deg, #2c2118, #181930);
@@ -326,13 +324,12 @@
   .track.today-active .num { color: var(--amber); text-shadow: 0 0 8px var(--amber-glow); }
   .track.today-active .cap { color: var(--ink); opacity: 0.9; font-weight: bold; }
   
-  /* Centro dell'etichetta del mini vinile attivo */
   .track.today-active::before {
     background: 
       radial-gradient(circle, var(--amber) 0%, var(--amber) 25%, #1a1a1a 26%, #000 100%);
   }
 
-  /* ---------- MODAL & ANIMAZIONI ---------- */
+  /* ---------- MODAL ---------- */
   .overlay{
     position:fixed;inset:0;
     background:rgba(4,5,10,0.85);
@@ -392,7 +389,7 @@
     padding:16px 0;
   }
   
-  /* ---------- GIRADISCHI SCOCCA IN LEGNO ---------- */
+  /* ---------- GIRADISCHI ---------- */
   .turntable {
     position: relative;
     width: 245px;
@@ -474,7 +471,6 @@
     animation-play-state: running;
   }
 
-  /* BRACCIO METALLICO */
   .tonearm {
     position: absolute;
     top: 8px;
@@ -827,24 +823,38 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
-// NUOVA LOGICA: Sblocco alle 19:00 esatte del giorno stabilito
+// LOGICA AGGIORNATA: Sblocco fisso alle 19:00:00 ORA LOCALE
 function dayState(dayIndex){
   const now = new Date();
   const unlockDayStr = dayUnlockDate(dayIndex);
   
-  // Creo l'oggetto Date esatto di sblocco (Giorno X alle ore 19:00:00)
-  const unlockDateTime = new Date(unlockDayStr + 'T19:00:00');
-  
-  const today = todayISO();
-  const isToday = unlockDayStr === today;
-  const entry = data.entries[dayIndex];
+  // Scomposizione e costruzione data locale per le 19:00
+  const [year, month, day] = unlockDayStr.split('-').map(Number);
+  const unlockDateTime = new Date(year, month - 1, day, 19, 0, 0, 0);
 
-  // Se l'ora attuale è inferiore all'ora di sblocco, la canzone risulta bloccata
-  if (now < unlockDateTime) {
-    return {locked: true, isToday: isToday, filled: false, unlockDate: unlockDayStr};
+  const entry = data.entries[dayIndex];
+  
+  const isSameDay = now.getFullYear() === year && 
+                    now.getMonth() === (month - 1) && 
+                    now.getDate() === day;
+
+  // Se l'ora attuale precede le 19:00 del giorno di sblocco
+  if (now.getTime() < unlockDateTime.getTime()) {
+    return {
+      locked: true, 
+      isToday: isSameDay, 
+      filled: false, 
+      unlockDate: unlockDayStr
+    };
   }
 
-  return {locked: false, isToday: isToday, filled: !!(entry && entry.songTitle), unlockDate: unlockDayStr};
+  // Sbloccata se si sono superate le 19:00
+  return {
+    locked: false, 
+    isToday: isSameDay, 
+    filled: !!(entry && entry.songTitle), 
+    unlockDate: unlockDayStr
+  };
 }
 
 function render(){
@@ -881,7 +891,6 @@ function render(){
     const s = dayState(i);
     const el = document.createElement('div');
     
-    // Classi differenziate per lo stato dei mini-vinili
     let cls = 'track';
     if(s.locked) {
       cls += ' locked';
@@ -894,8 +903,13 @@ function render(){
     el.className = cls;
     
     let subText = 'NOTTE';
-    if (s.isToday && !s.locked) subText = 'OGGI';
-    else if (s.locked) subText = '🔒';
+    if (s.isToday && !s.locked) {
+      subText = 'OGGI';
+    } else if (s.isToday && s.locked) {
+      subText = 'ORE 19';
+    } else if (s.locked) {
+      subText = '🔒';
+    }
 
     el.innerHTML = `
       <div class="track-content">
