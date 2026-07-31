@@ -821,7 +821,6 @@ function dayUnlockDate(dayIndex){
   return addDays(data.startDate, dayIndex - 1);
 }
 
-// LOGICA CORRETTA: Sblocco fissato alle 19:00:00 ORA LOCALE
 function dayState(dayIndex){
   const now = new Date();
   const unlockDayStr = dayUnlockDate(dayIndex);
@@ -835,7 +834,6 @@ function dayState(dayIndex){
                     now.getMonth() === (month - 1) && 
                     now.getDate() === day;
 
-  // Se siamo prima dell'orario delle 19:00 del giorno previsto
   if (now.getTime() < unlockDateTime.getTime()) {
     return {
       locked: true, 
@@ -845,7 +843,6 @@ function dayState(dayIndex){
     };
   }
 
-  // Se siamo dopo le 19:00 della data prevista
   return {
     locked: false, 
     isToday: isSameDay, 
@@ -869,7 +866,8 @@ function render(){
     const s = dayState(i);
     if(!s.locked) unlockedCount++;
     const t = document.createElement('div');
-    t.className = 'tick' + (s.isToday && !s.locked ? ' today' : (!s.locked ? ' past' : ''));
+    // ILLUMINAZIONE BARRA: attiva 'today' se è oggi (anche se bloccata) oppure 'past' se sbloccata
+    t.className = 'tick' + (s.isToday ? ' today' : (!s.locked ? ' past' : ''));
     ticks.appendChild(t);
   }
   const label = $('tunerLabel');
